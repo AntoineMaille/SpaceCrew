@@ -1,6 +1,6 @@
 package crew;
 
-public class Vaisseau {
+public class Vaisseau extends Entities {
 	
 	private VaisseauType type;
 	private int hp;

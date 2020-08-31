@@ -33,6 +33,7 @@ public class Map {
 				else {
 					res.append("|   ");
 				}
+				//
 			}
 			res.append("|");
 		}
