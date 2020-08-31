@@ -3,10 +3,11 @@ package crew;
 public class Joueur {
 	private int numero;
 	private String name;
-	private CROISEUR v1;
+	private VaisseauType v1;
 	private DESTROYER v2;
 	private CHASSEUR v3;
 	private ECLAIREUR v4;
+	private int ressources;
 	
 	public int getNumero() {
 		return numero;
@@ -26,7 +27,11 @@ public class Joueur {
 	public ECLAIREUR getV4() {
 		return v4;
 	}
-	public Joueur(int numero, String name, CROISEUR v1, DESTROYER v2, CHASSEUR v3, ECLAIREUR v4) {
+	public int getRessources() {
+		return ressources;
+	}
+
+	public Joueur(int numero, String name, CROISEUR v1, DESTROYER v2, CHASSEUR v3, ECLAIREUR v4,) {
 		super();
 		this.numero = numero;
 		this.name = name;
