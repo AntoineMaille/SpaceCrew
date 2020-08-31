@@ -3,11 +3,12 @@ package crew;
 public class Joueur {
 	private int numero;
 	private String name;
-	private VaisseauType v1;
-	private DESTROYER v2;
-	private CHASSEUR v3;
-	private ECLAIREUR v4;
+	private Vaisseau Croiseur;
+	private Vaisseau Destroyer;
+	private Vaisseau Chasseur;
+	private Vaisseau Eclaireur;
 	private int ressources;
+	private PlaneteJoueur Camp;
 	
 	public int getNumero() {
 		return numero;
@@ -15,30 +16,36 @@ public class Joueur {
 	public String getName() {
 		return name;
 	}
-	public CROISEUR getV1() {
-		return v1;
+	public Vaisseau getCroiseur() {
+		return Croiseur;
 	}
-	public DESTROYER getV2() {
-		return v2;
+	public Vaisseau getDestroyer() {
+		return Destroyer;
 	}
-	public CHASSEUR getV3() {
-		return v3;
+	public Vaisseau getChasseur() {
+		return Chasseur;
 	}
-	public ECLAIREUR getV4() {
-		return v4;
+	public Vaisseau getEclaireur() {
+		return Eclaireur;
 	}
 	public int getRessources() {
 		return ressources;
 	}
+	public PlaneteJoueur getCamp() {
 
-	public Joueur(int numero, String name, CROISEUR v1, DESTROYER v2, CHASSEUR v3, ECLAIREUR v4,) {
+		return Camp;
+	}
+	public Joueur(int numero, String name, Vaisseau croiseur, Vaisseau destroyer, Vaisseau chasseur, Vaisseau eclaireur,
+			int ressources, PlaneteJoueur camp) {
 		super();
 		this.numero = numero;
 		this.name = name;
-		this.v1 = v1;
-		this.v2 = v2;
-		this.v3 = v3;
-		this.v4 = v4;
+		Croiseur = croiseur;
+		Destroyer = destroyer;
+		Chasseur = chasseur;
+		Eclaireur = eclaireur;
+		this.ressources = ressources;
+		Camp = camp;
 	}
 	
 	
