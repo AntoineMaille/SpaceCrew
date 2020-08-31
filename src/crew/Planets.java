@@ -1,8 +1,15 @@
 package crew;
 
-public class Planets {
+public class Planets extends Entities {
 	
 	public Planets() {
-		f
+		
 	}
+
+	@Override
+	public String toString() {
+		return "O";
+	}
+	
+	
 }

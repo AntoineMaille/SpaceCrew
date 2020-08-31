@@ -1,5 +1,4 @@
 package crew;
 
-public class Vaisseau {
-	private 
+public class Vaisseau extends Entities {
 }
