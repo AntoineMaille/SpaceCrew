@@ -7,5 +7,11 @@ public enum VaisseauType {
 		private int attaque;
 		private int movementPoint;
 		
+		private VaisseauType(char l, int vie, int attaque, int movementPoint) {
+			this.l= l;
+			this.vie = vie;
+			this.attaque = attaque;
+			this.movementPoint = movementPoint;
+		}
 	
 }
