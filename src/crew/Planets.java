@@ -55,7 +55,7 @@ public abstract class Planets extends Entities {
         return name;
     }
 
-    public Planets(int ressources) {
+    public Planets(int ressources,String name) {
         super();
         this.ressources = ressources;
        // this.setName(nomPlanete());
