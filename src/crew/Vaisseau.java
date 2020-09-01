@@ -52,7 +52,7 @@ public class Vaisseau extends Entities {
 			}
 
 			else if(Map.getCase(this.getPosition().update(d)) instanceof PlaneteRandom) {
-				if((PlaneteRandom)Map.getCase(this.getPosition().update(d).).get
+				//if((PlaneteRandom)Map.getCase(this.getPosition().update(d).).get
 
 			}
 		}
