@@ -113,6 +113,11 @@ public class Map {
 	public static void main(String[] args) {
 		Map map = new Map();
 		System.out.println(map);
+		for(i=0;i<joueursList.size();i++) {
+		if(joueursList.get(i).Pleine()){
+		System.out.println("Le joueur "+i+" est le grand vainqueur de cette bataille spatiale, bravo!");
+			}
+		}
 		for (int i =0; i < 4; i++) {
 			while(map.flotte1.get(i).getMovementPointLeft() > 0) {
 				Scanner in = new Scanner(System.in);
