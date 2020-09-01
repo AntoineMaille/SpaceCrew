@@ -15,7 +15,6 @@ public class Joueur {
 		this.ressources = 0;
 		this.planete=e;
 		this.flotte = createFlotte();
-		System.out.println(this.flotte.get(3).getPosition());
 
 	}
 
@@ -71,7 +70,6 @@ public class Joueur {
 	public ArrayList<Vaisseau> createFlotte(){
 		ArrayList<Vaisseau> flotte = new ArrayList<Vaisseau>();
 		int xCroiseur, yCroiseur, xChasseur, yChasseur, xDestroyer, yDestroyer, xEclaireur, yEclaireur;
-		System.out.println(this.numero);
 		switch(this.numero) {
 		case 1: xCroiseur = 0; yCroiseur = 1;
 		xChasseur = 1; yChasseur = 0; 
@@ -93,7 +91,7 @@ public class Joueur {
 		xDestroyer = Map.getLength() - 1; yDestroyer = 1; 
 		xEclaireur = Map.getLength() - 1; yEclaireur = 2;
 		break;
-		default : System.out.println("default");
+		default : 
 		xCroiseur = 0; yCroiseur = 0;
 		xChasseur = 0; yChasseur = 0; 
 		xDestroyer = 0; yDestroyer = 0; 
