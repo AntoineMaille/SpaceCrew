@@ -3,9 +3,6 @@ package crew;
 public abstract class Entities {
 	private Coordinates position;
 	
-	public Entities() {
-		
-	}
 		
 	public Entities(Coordinates c) {
 		this.position=c;

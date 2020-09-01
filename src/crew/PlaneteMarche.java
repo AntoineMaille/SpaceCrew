@@ -12,6 +12,7 @@ public class PlaneteMarche extends Planets {
 	
 	/**Manque les boucles, et les entrées au clavier**/
 	public PlaneteMarche() {
+		super(0, "March�" , 0 , 0);
 		this.name="Marché";
 		this.p1=new Coordinates(Map.getLength()/2-1, Map.getLength()/2-1);
 		this.p2=new Coordinates(Map.getLength()/2-1, Map.getLength()/2);

@@ -6,13 +6,9 @@ public class PlaneteJoueur extends Planets{
 	
 	
 	public PlaneteJoueur(PlaneteInitEnum pos) {
-		super(0, "test");
+		super(0, "test",pos.getX(), pos.getY());
 		this.positionInit=pos;
-		this.setPosition(new Coordinates(pos.getX(), pos.getY()));
 	}
-
-
-
 
 	public PlaneteInitEnum getPositionInit() {
 		return positionInit;
