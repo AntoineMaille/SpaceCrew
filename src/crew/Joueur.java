@@ -1,51 +1,79 @@
 package crew;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Joueur {
 	private int numero;
 	private String name;
-	private Vaisseau Croiseur;
-	private Vaisseau Destroyer;
-	private Vaisseau Chasseur;
-	private Vaisseau Eclaireur;
+	private ArrayList<Vaisseau> flotte;
 	private int ressources;
-	private PlaneteJoueur Camp;
+	private PlaneteJoueur equipe;
+	
+	public Joueur(int n, String nom,PlaneteJoueur e) {
+		this.numero = n;
+		this.name = nom;
+		this.ressources = 0;
+		this.equipe=e;
+	}
+
+
+	public void CreationJoueur() {
+		System.out.println("Nommez les deux équipes ?");
+		Scanner in = new Scanner(System.in);
+		PlaneteJoueur[] planeteDepart= new PlaneteJoueur[2];
+		planeteDepart[0]=new PlaneteJoueur(PlaneteInitEnum.PlanNO);
+		planeteDepart[1]=new PlaneteJoueur(PlaneteInitEnum.PlanSE);
+		Joueur j1=new Joueur(1,in.nextLine(),planeteDepart[0]);
+		Joueur j2=new Joueur(2,in.nextLine(),planeteDepart[1]);
+		System.out.println(j1+" Démarre sur la planète du haut.");
+		  }
+		
 	
 	public int getNumero() {
 		return numero;
 	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
 	public String getName() {
 		return name;
 	}
-	public Vaisseau getCroiseur() {
-		return Croiseur;
+
+	public void setName(String name) {
+		this.name = name;
 	}
-	public Vaisseau getDestroyer() {
-		return Destroyer;
+
+	public ArrayList<Vaisseau> getFlotte() {
+		return flotte;
 	}
-	public Vaisseau getChasseur() {
-		return Chasseur;
+
+	public void setFlotte(ArrayList<Vaisseau> flotte) {
+		this.flotte = flotte;
+		
 	}
-	public Vaisseau getEclaireur() {
-		return Eclaireur;
-	}
+
 	public int getRessources() {
 		return ressources;
 	}
-	public PlaneteJoueur getCamp() {
 
-		return Camp;
-	}
-	public Joueur(int numero, String name, Vaisseau croiseur, Vaisseau destroyer, Vaisseau chasseur, Vaisseau eclaireur,
-			int ressources, PlaneteJoueur camp) {
-		super();
-		this.numero = numero;
-		this.name = name;
-		Croiseur = croiseur;
-		Destroyer = destroyer;
-		Chasseur = chasseur;
-		Eclaireur = eclaireur;
+	public void setRessources(int ressources) {
 		this.ressources = ressources;
-		Camp = camp;
+	}
+
+	public PlaneteJoueur getEquipe() {
+		return equipe;
+	}
+
+	public void setEquipe(PlaneteJoueur equipe) {
+		this.equipe = equipe;
+	}
+
+
+	public String toString() {
+		return "Joueur [name=" + name + ", flotte=" + flotte + ", ressources=" + ressources + ", equipe=" + equipe
+				+ "]";
 	}
 	
 	

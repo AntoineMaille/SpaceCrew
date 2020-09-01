@@ -38,6 +38,7 @@ public class Vaisseau extends Entities {
 	public VaisseauType getType() {
 		return type;
 	}
+<<<<<<< HEAD
 	
 	public boolean move(Direction d) {
 		if(		this.getPosition().update(d).getX() > 0 &&
@@ -55,4 +56,6 @@ public class Vaisseau extends Entities {
 	
 	
 	
+=======
+>>>>>>> branch 'master' of https://gitlab.univ-lille.fr/2020-S3-projet/groupe-23.git
 }
