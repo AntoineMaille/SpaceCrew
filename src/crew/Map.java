@@ -13,8 +13,8 @@ public class Map {
 	public Map() {
 		planetesJoueurs = new ArrayList<Planets>();
 		planetesRandom = new ArrayList<Planets>();
-		planetesJoueurs.add(new PlaneteJoueur(PlanNO));
-		planetesJoueurs.add(new PlaneteJoueur(PlanSE));
+		planetesJoueurs.add(new PlaneteJoueur(PlaneteInitEnum.PlanNO));
+		planetesJoueurs.add(new PlaneteJoueur(PlaneteInitEnum.PlanSE));
 		map = new Entities[Map.length][Map.length];
 		map [0] [0] = planetesJoueurs.get(0);
 		map [Map.length - 1][Map.length - 1] = planetesJoueurs.get(1);
