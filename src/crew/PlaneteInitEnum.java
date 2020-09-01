@@ -1,7 +1,7 @@
 package crew;
 
 public enum PlaneteInitEnum {
-	PlanNO(0,0),PlanSO(19,0);
+	PlanNO(0,0),PlanSO(19,19);
 	private int x;
 	private int y;
 	
