@@ -13,7 +13,7 @@ public enum VaisseauType {
 			this.vie = vie;
 			this.attaque = attaque;
 			this.movementPoint = movementPoint;
-			this.ressources=0;
+			this.ressources=0; 
 		}
 
 		public String getL() {
