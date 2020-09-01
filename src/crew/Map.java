@@ -2,8 +2,10 @@ package crew;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Map {
+	private ArrayList<Joueur> Joueurs;
 	private ArrayList<Planets> planetesJoueurs;
 	private ArrayList<Planets> planetesRandom;
 	private static Random ran;
@@ -22,7 +24,18 @@ public class Map {
 		return length;
 	}
 	private int compteurPlanete = -1;
-
+	
+	public void CreationJoueur() {
+		System.out.println("Nommez les deux équipes ?");
+		Scanner in = new Scanner(System.in);
+		PlaneteJoueur[] planeteDepart= new PlaneteJoueur[2];
+		planeteDepart[0]=new PlaneteJoueur(PlaneteInitEnum.PlanNO);
+		planeteDepart[1]=new PlaneteJoueur(PlaneteInitEnum.PlanSE);
+		Joueur j1=new Joueur(1,in.nextLine(),planeteDepart[0]);
+		Joueur j2=new Joueur(2,in.nextLine(),planeteDepart[1]);
+		System.out.println(j1.getName()+" Démarre sur la planète du haut.");
+	}
+	
 	public Map() {
 		planetesJoueurs = new ArrayList<Planets>();
 		planetesRandom = new ArrayList<Planets>();
@@ -41,6 +54,7 @@ public class Map {
 				}
 			}
 		}
+		this.CreationJoueur();
 	}
 
 	public String toString() {
