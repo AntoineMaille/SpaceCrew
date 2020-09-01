@@ -1,7 +1,17 @@
 package crew;
 
-public class Planets extends Entities {
+public abstract class Planets extends Entities {
 	private int ressources;
+	
+	
+	public void setRessources(int ressources) {
+		this.ressources = ressources;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	private String name;
 	
 	

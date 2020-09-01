@@ -1,7 +1,7 @@
 package crew;
 
 public enum PlaneteInitEnum {
-	PlanNO(0,0),PlanSE(19,19);
+	PlanNO(0,0),PlanSE(Map.getLength() - 1,Map.getLength() - 1);
 	private int x;
 	private int y;
 	
