@@ -10,6 +10,7 @@ public class PlaneteMarche extends Planets {
 	
 
 	public PlaneteMarche() {
+		super(0, "Marché" , 0 , 0);
 		this.name="MarchÃ©";
 		this.p1=new Coordinates(Map.getLength()/2-1, Map.getLength()/2-1);
 		this.p2=new Coordinates(Map.getLength()/2-1, Map.getLength()/2);
