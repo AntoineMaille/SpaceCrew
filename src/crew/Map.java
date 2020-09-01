@@ -7,8 +7,20 @@ public class Map {
 	private ArrayList<Planets> planetesJoueurs;
 	private ArrayList<Planets> planetesRandom;
 	private static Random ran;
-	private Entities [][] map;
-	private static int length = 20;
+	public static Entities [][] map;
+	private static final int length = 20;
+
+	public static Entities[][] getMap() {
+		return map;
+	}
+
+	public static void setMap(Entities[][] map) {
+		Map.map = map;
+	}
+
+	public static int getLength() {
+		return length;
+	}
 
 	public Map() {
 		planetesJoueurs = new ArrayList<Planets>();
@@ -38,6 +50,17 @@ public class Map {
 			res.append("|");
 		}
 		return res.toString();
+	}
+	
+	public static Vaisseau getVaisseau(Coordinates c) {
+		if(Map.map [c.getX()][c.getY()] instanceof Vaisseau) {
+			return (Vaisseau) Map.map [c.getX()][c.getY()];
+		}
+		return null;
+	}
+	
+	public static void setVaisseau(Coordinates c, Vaisseau v) {
+		Map.getMap() [c.getX()][c.getY()] = v;
 	}
 
 	public static void main(String[] args) {

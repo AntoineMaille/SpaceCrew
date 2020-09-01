@@ -4,15 +4,14 @@ public class Vaisseau extends Entities {
 	
 	private VaisseauType type;
 	private int hp;
-	private int x;
-	private int y;
+	private int movementPointLeft;
 	
 	
-	public Vaisseau(VaisseauType t,int v,int x,int y) {
+	public Vaisseau(VaisseauType t,int x,int y) {
 		this.type=t;
-		this.hp=v;
-		this.x=x;
-		this.y=y;
+		this.hp= type.getVie();
+		this.setPosition(new Coordinates(x, y));
+		this.movementPointLeft = t.getMovementPoint();
 	}
 
 
@@ -26,28 +25,32 @@ public class Vaisseau extends Entities {
 	}
 
 
-	public int getX() {
-		return x;
+	public Coordinates getPosition() {
+		return this.getPosition();
 	}
 
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
-
-	public int getY() {
-		return y;
-	}
-
-
-	public void setY(int y) {
-		this.y = y;
+	public void setPosition(Coordinates c) {
+		this.setPosition(c);
 	}
 
 
 	public VaisseauType getType() {
 		return type;
+	}
+	
+	public boolean move(Direction d) {
+		if(		this.getPosition().update(d).getX() > 0 &&
+				this.getPosition().update(d).getX() < Map.getLength() - 1 &&
+				Map.getVaisseau(this.getPosition().update(d)) == null &&
+				this.movementPointLeft != 0) {
+			Map.getMap() [this.getPosition().getX()][this.getPosition().getY()] = null;
+			Map.setVaisseau(this.getPosition().update(d), this);
+			this.setPosition(this.getPosition().update(d));
+			this.movementPointLeft --;
+			return true;
+		}
+		return false;
 	}
 	
 	
