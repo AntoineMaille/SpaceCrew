@@ -7,7 +7,7 @@ public enum VaisseauType {
 		private int attaque;
 		private int movementPoint;
 		private int ressources;
-		
+	
 		private VaisseauType(String l, int vie, int attaque, int movementPoint) {
 			this.l= l;
 			this.vie = vie;
