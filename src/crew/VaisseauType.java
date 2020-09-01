@@ -38,13 +38,13 @@ public enum VaisseauType {
 			return capacity;
 		}
 
-		public void setCapacity(int capacity) {
-			this.capacity = capacity;
-		}
-
 		public char getIcone() {
 			return icone;
+			
 		}
+
+
+
 
 
 		

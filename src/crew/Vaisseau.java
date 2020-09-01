@@ -13,6 +13,7 @@ public class Vaisseau extends Entities {
 	private int ressources;
 
 
+
 	public Vaisseau(VaisseauType t,int x,int y, int joueur) {
 		super(x,y);
 		this.type=t;
@@ -23,9 +24,19 @@ public class Vaisseau extends Entities {
 		this.movementPointLeft = t.getMovementPoint();
 		this.movementPoint = this.movementPointLeft;
 		this.joueur= joueur;
-		this.ressources = 0;
+		this.ressources=0;
 	}
+	
 
+
+	public void Combat(Vaisseau attaquant) {
+		if (this.getType().getVie()-attaquant.getType().getAttaque()>=0){
+			this.setMovementPointLeft(0);
+			this.setName('☠');
+		}
+		this.setVie(this.getType().getVie()-attaquant.getType().getAttaque());
+		//system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
+	}
 
 
 	public int getVie() {
@@ -142,6 +153,11 @@ public class Vaisseau extends Entities {
 		this.capacity = capacity;
 	}
 
+
+
+	public void setType(VaisseauType type) {
+		this.type = type;
+	}
 
 
 	public boolean move(Direction d) {
