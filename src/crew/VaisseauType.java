@@ -17,6 +17,9 @@ public enum VaisseauType {
 		public String getL() {
 			return l;
 		}
+		public void setL(String s){
+			this.l=s;
+		}
 
 		public int getVie() {
 			return vie;
