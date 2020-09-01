@@ -16,7 +16,6 @@ public abstract class Planets extends Entities {
 	}
 
 
-<<<<<<< HEAD
    /** public String nomPlanete() {
 =======
     /*public String nomPlanete() {
@@ -49,11 +48,7 @@ public abstract class Planets extends Entities {
         }
         return lines.get((int) (Math.random() * (40) ));
 
-<<<<<<< HEAD
     }**/
-=======
-    }*/
->>>>>>> branch 'master' of https://gitlab.univ-lille.fr/2020-S3-projet/groupe-23.git
 
     public int getRessources() {
         return ressources;
@@ -63,20 +58,14 @@ public abstract class Planets extends Entities {
         return name;
     }
 
-<<<<<<< HEAD
     public Planets(int ressources, String name, int x, int y) {
     	super(x, y);
-=======
-    public Planets(int ressources,String name) {
-        super();
->>>>>>> branch 'master' of https://gitlab.univ-lille.fr/2020-S3-projet/groupe-23.git
-        this.ressources = ressources;
-<<<<<<< HEAD
-        this.setName("toto");
-=======
-       // this.setName(nomPlanete());
->>>>>>> branch 'master' of https://gitlab.univ-lille.fr/2020-S3-projet/groupe-23.git
     }
+    /**public Planets(int ressources,String name) {
+        super();
+        this.ressources = ressources;
+        this.setName("toto");
+    }**/
 
 
     @Override
