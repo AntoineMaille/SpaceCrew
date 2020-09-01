@@ -101,6 +101,9 @@ public class Map {
 		Map map = new Map(creationJoueur());
 		System.out.println(map);
 		/**for (int i =0; i < 4; i++) {
+		
+		for (int i =0; i < 4; i++) {
+ 		branch 'master' of https://gitlab.univ-lille.fr/2020-S3-projet/groupe-23.git
 			while(map.flotte1.get(i).getMovementPointLeft() > 0) {
 				Scanner in = new Scanner(System.in);
 				Direction d;
