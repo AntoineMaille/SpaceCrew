@@ -33,6 +33,14 @@ public class Vaisseau extends Entities {
 		this.hp = vie;
 	}
 
+	public void setMovementPointLeft(int movementPointLeft) {
+		this.movementPointLeft = movementPointLeft;
+	}
+
+
+	public int getMovementPointLeft() {
+		return movementPointLeft;
+	}
 
 	public Coordinates getPosition() {
 		return super.getPosition();
