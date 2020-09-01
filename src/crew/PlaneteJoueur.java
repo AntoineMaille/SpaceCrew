@@ -11,4 +11,10 @@ public class PlaneteJoueur extends Planets{
 		this.ressources=0;
 		this.positionInit=pos;
 	}
+		public boolean Pleine() {
+		if (this.ressources==this.seuil) {
+			return true;
+		}
+		return false;
+	}
 }
