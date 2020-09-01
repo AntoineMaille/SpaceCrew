@@ -25,6 +25,7 @@ public class Joueur {
 		planeteDepart[1]=new PlaneteJoueur(PlaneteInitEnum.PlanSE);
 		Joueur j1=new Joueur(1,in.nextLine(),planeteDepart[0]);
 		Joueur j2=new Joueur(2,in.nextLine(),planeteDepart[1]);
+		System.out.println(j1+" Démarre sur la planète du haut.");
 		  }
 		
 	
