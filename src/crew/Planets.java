@@ -16,7 +16,7 @@ public abstract class Planets extends Entities {
 	}
 
 
-    public String nomPlanete() {
+    /*public String nomPlanete() {
         String csvFile = "~/groupe-23/ressources/name_planets.csv";
         BufferedReader reader = null;
         List<String> lines = new ArrayList<>();
@@ -45,7 +45,7 @@ public abstract class Planets extends Entities {
         }
         return lines.get((int) (Math.random() * (40) ));
 
-    }
+    }*/
 
     public int getRessources() {
         return ressources;
@@ -55,10 +55,10 @@ public abstract class Planets extends Entities {
         return name;
     }
 
-    public Planets(int ressources, String name) {
+    public Planets(int ressources) {
         super();
         this.ressources = ressources;
-        this.setName(nomPlanete());
+       // this.setName(nomPlanete());
     }
 
     public Planets() {
