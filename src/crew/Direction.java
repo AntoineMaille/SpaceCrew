@@ -8,7 +8,7 @@ public enum Direction {
 	private Direction(int x, int y) {
 		
 	}
-t
+
 	public int getX() {
 		return x;
 	}
