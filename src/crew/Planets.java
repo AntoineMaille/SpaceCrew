@@ -4,45 +4,43 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Planets extends Entities {
 	private int ressources;
 	private String name;
 
-	public static void main(String[] args) {
-		String csvFile = "../../ressources/name_planets.csv";
-		BufferedReader br = null;
-		String line = "";
-		String cvsSplitBy = ",";
-
+	public String nomPlanete() {
+		String csvFile = "/Users/yzmar/SpaceCrewAgileProjectt/groupe-23/ressources/name_planets.csv";
+		BufferedReader reader = null;
+		List<String> lines = new ArrayList<>();
+		String line = null;
 		try {
-
-			br = new BufferedReader(new FileReader(csvFile));
-			while ((line = br.readLine()) != null) {
-
-				// use comma as separator
-				String[] country = line.split(cvsSplitBy);
-
-				System.out.println("Country[code= " + country[4] + " , name=" + country[5] + "]");
-
+			reader = new BufferedReader(new FileReader(csvFile));
+			while ((line = reader.readLine()) != null) {
+				lines.add(line);
 			}
 
 		} catch (FileNotFoundException e) {
+
 			e.printStackTrace();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (br != null) {
+			if (reader != null) {
 				try {
-					br.close();
+					reader.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+
 			}
 		}
+		return lines.get((int) (Math.random() * ((40) + 1)));
 
 	}
-
 
 	public int getRessources() {
 		return ressources;
@@ -55,7 +53,7 @@ public class Planets extends Entities {
 	public Planets(int ressources, String name) {
 		super();
 		this.ressources = ressources;
-		this.name = name;
+		this.setName(nomPlanete());
 	}
 
 	public Planets() {
@@ -65,6 +63,10 @@ public class Planets extends Entities {
 	@Override
 	public String toString() {
 		return "O";
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
