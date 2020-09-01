@@ -12,7 +12,7 @@ public class Planets extends Entities {
     private String name;
 
     public String nomPlanete() {
-        String csvFile = "/Users/yzmar/SpaceCrewAgileProjectt/groupe-23/ressources/name_planets.csv";
+        String csvFile = "~/groupe-23/ressources/name_planets.csv";
         BufferedReader reader = null;
         List<String> lines = new ArrayList<>();
         String line = null;
@@ -38,7 +38,7 @@ public class Planets extends Entities {
 
             }
         }
-        return lines.get((int) (Math.random() * ((40) + 1)));
+        return lines.get((int) (Math.random() * (40) ));
 
     }
 
