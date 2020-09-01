@@ -8,9 +8,9 @@ public class Vaisseau extends Entities {
 	
 	
 	public Vaisseau(VaisseauType t,int x,int y) {
+		super(x,y);
 		this.type=t;
 		this.hp= type.getVie();
-		this.setPosition(new Coordinates(x, y));
 		this.movementPointLeft = t.getMovementPoint();
 	}
 
@@ -26,12 +26,7 @@ public class Vaisseau extends Entities {
 
 
 	public Coordinates getPosition() {
-		return this.getPosition();
-	}
-
-
-	public void setPosition(Coordinates c) {
-		this.setPosition(c);
+		return super.getPosition();
 	}
 
 
@@ -53,5 +48,7 @@ public class Vaisseau extends Entities {
 		return false;
 	}
 	
-	
+	public String toString() {
+		return ""+this.getType().getL();
+	}
 }

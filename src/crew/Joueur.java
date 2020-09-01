@@ -64,6 +64,4 @@ public class Joueur {
 		return "Joueur [name=" + name + ", flotte=" + flotte + ", ressources=" + ressources + ", equipe=" + equipe
 				+ "]";
 	}
-	
-	
 }

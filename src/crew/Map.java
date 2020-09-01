@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Map {
+	private ArrayList<Vaisseau> flotte1;
 	private ArrayList<Joueur> Joueurs;
 	private ArrayList<Planets> planetesJoueurs;
 	private ArrayList<Planets> planetesRandom;
@@ -32,6 +33,16 @@ public class Map {
 		planeteDepart[0]=new PlaneteJoueur(PlaneteInitEnum.PlanNO);
 		planeteDepart[1]=new PlaneteJoueur(PlaneteInitEnum.PlanSE);
 		Joueur j1=new Joueur(1,in.nextLine(),planeteDepart[0]);
+		flotte1= new ArrayList<Vaisseau>();
+		flotte1.add((new Vaisseau(VaisseauType.CROISEUR,0,1)));
+		flotte1.add((new Vaisseau(VaisseauType.CHASSEUR,1,0)));
+		flotte1.add((new Vaisseau(VaisseauType.DESTROYER,1,1)));
+		flotte1.add((new Vaisseau(VaisseauType.ECLAIREUR,2,2)));
+		j1.setFlotte(flotte1);
+		map[j1.getFlotte().get(0).getPosition().getY()][j1.getFlotte().get(0).getPosition().getX()]=j1.getFlotte().get(0);
+		map[j1.getFlotte().get(1).getPosition().getY()][j1.getFlotte().get(1).getPosition().getX()]=j1.getFlotte().get(1);
+		map[j1.getFlotte().get(2).getPosition().getY()][j1.getFlotte().get(2).getPosition().getX()]=j1.getFlotte().get(2);
+		map[j1.getFlotte().get(3).getPosition().getY()][j1.getFlotte().get(3).getPosition().getX()]=j1.getFlotte().get(3);
 		Joueur j2=new Joueur(2,in.nextLine(),planeteDepart[1]);
 		System.out.println(j1.getName()+" Démarre sur la planète du haut.");
 	}
@@ -54,7 +65,7 @@ public class Map {
 				}
 			}
 		}
-		this.CreationJoueur();
+		this.CreationJoueur();		
 	}
 
 	public String toString() {
