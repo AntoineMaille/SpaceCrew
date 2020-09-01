@@ -113,6 +113,7 @@ public class Map {
 	public static void main(String[] args) {
 		Map map = new Map();
 		System.out.println(map);
+		
 		for (int i =0; i < 4; i++) {
 			while(map.flotte1.get(i).getMovementPointLeft() > 0) {
 				Scanner in = new Scanner(System.in);
