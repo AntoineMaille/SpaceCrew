@@ -49,7 +49,4 @@ public class Vaisseau extends Entities {
 	public VaisseauType getType() {
 		return type;
 	}
-	
-	
-	
 }
