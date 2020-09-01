@@ -21,7 +21,7 @@ public class Vaisseau extends Entities {
 			this.getType().setL("☠");
 		}
 		this.setVie(this.getType().getVie()-attaquant.getType().getAttaque());
-		//system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
+		system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
 	}
 
 
