@@ -33,7 +33,7 @@ public class PlaneteJoueur extends Planets{
 
 	@Override
 	public String toString() {
-		return "🪐";
+		return "O";
 	}
 	
 	
