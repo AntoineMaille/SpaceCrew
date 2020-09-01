@@ -1,26 +1,25 @@
 package crew;
 
 public enum VaisseauType {
-	CROISEUR("C",500,20,2),DESTROYER("D",300,60,2),CHASSEUR("H",200,35,3),ECLAIREUR("E",100,25,5);
-		private String l;
+	CROISEUR("Croiseur",'C', 500,20,2, 1000),DESTROYER("Destroyer", 'D',300,60,2, 1000),CHASSEUR("Chasseur",'H',200,35,3,500),ECLAIREUR("Eclaireur",'E', 100,25,5,200);
+		private String name;
     	private int vie;
 		private int attaque;
 		private int movementPoint;
-		private int ressources;
+		private int capacity;
+		private char icone;
 	
-		private VaisseauType(String l, int vie, int attaque, int movementPoint) {
-			this.l= l;
+		private VaisseauType(String l,char icone, int vie, int attaque, int movementPoint, int capacity) {
+			this.icone = icone;
+			this.name= l;
 			this.vie = vie;
 			this.attaque = attaque;
 			this.movementPoint = movementPoint;
-			this.ressources=0; 
+			this.capacity = capacity;
 		}
 
-		public String getL() {
-			return l;
-		}
-		public void setL(String s){
-			this.l=s;
+		public String getName() {
+			return name;
 		}
 
 		public int getVie() {
@@ -35,8 +34,16 @@ public enum VaisseauType {
 			return movementPoint;
 		}
 
-		public int getRessources() {
-			return ressources;
+		public int getCapacity() {
+			return capacity;
+		}
+
+		public void setCapacity(int capacity) {
+			this.capacity = capacity;
+		}
+
+		public char getIcone() {
+			return icone;
 		}
 
 

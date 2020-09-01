@@ -61,7 +61,7 @@ public class PlaneteMarche extends Planets {
 	
 	public void Rencontre(Vaisseau stranger) {
 		this.estPresent=stranger;
-		if(estPresent.getType().getRessources()!=0) {
+		if(estPresent.getRessources() == estPresent.getType().getCapacity()) {
 			Amelioration();
 		}else {
 			System.out.println("Vous n'avez aucune ressources, revenez plus tard.");

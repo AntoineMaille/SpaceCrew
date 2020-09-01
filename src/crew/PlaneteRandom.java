@@ -8,7 +8,7 @@ public class PlaneteRandom extends Planets{
 	private static Random ran = new Random();
 	
 	public PlaneteRandom(int x, int y) {
-		super((ran.nextInt() * 1000 - 300) + 300, "toto", x, y);
+		super((ran.nextInt(1000 - 300) + 1) + 300, "toto", x, y);
 		this.currentVessel = null;
 		this.recharge = 5;
 	}

@@ -1,12 +1,13 @@
 package crew;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Map {
 	private static ArrayList<Joueur> joueursList;
-	private ArrayList<Planets> planetesRandom;
-	private static final int length = 20;
+	private ArrayList<PlaneteRandom> planetesRandom;
+	private static final int length = 16;
 	public static Entities [][] map = new Entities[length][length];
 	private int compteurPlanete = -1;
 	private static Scanner scanner = new Scanner(System.in);
@@ -23,10 +24,10 @@ public class Map {
 
 
 	public Map(ArrayList<Joueur> joueurs) {
-		this.joueursList = new ArrayList<Joueur>();
-		planetesRandom = new ArrayList<Planets>();
+		joueursList = new ArrayList<Joueur>();
+		planetesRandom = new ArrayList<PlaneteRandom>();
 		for (Joueur joueur : joueurs) {
-			this.joueursList.add(joueur);
+			joueursList.add(joueur);
 			Map.addEntities(joueur.getPlanete());
 			for (Vaisseau vaisseau : joueur.getFlotte()) {
 				Map.addEntities(vaisseau);
@@ -43,7 +44,7 @@ public class Map {
 		}
 	}
 
-
+	@Override
 	public String toString() {
 		StringBuilder res = new StringBuilder();
 		for (int ligne = 0; ligne < Map.length ; ligne++) {
@@ -82,27 +83,27 @@ public class Map {
 	public static ArrayList<Joueur> creationJoueur() {
 		ArrayList<Joueur> joueurs = new ArrayList<>();
 		int nbEquipe;
-		System.out.println("Combien voulez-vous d'�quipes ? : ");
+		System.out.println("Combien voulez-vous d'�quipes ? : ");
 		while(!scanner.hasNextInt()) {		
 			System.out.println("Vous devez entrer un int");
 		}
 		nbEquipe = scanner.nextInt();
 		for (int nbJoueurs = 0; nbJoueurs < nbEquipe; nbJoueurs++) {
-			joueurs.add(new Joueur(nbJoueurs + 1, "toto", new PlaneteJoueur(PlaneteInitEnum.values() [nbJoueurs])));
+			joueurs.add(new Joueur(nbJoueurs + 1, "toto", new PlaneteJoueur(PlaneteInitEnum.values() [nbJoueurs], nbJoueurs + 1)));
 		}
 		return joueurs;
 	}
 
-	public void play() {
+	/**public void play() {
 		boolean win = false;
 		while(!win) {
 			for (Joueur joueur : joueursList) {
 				if(joueur.getFlotte().size() > 0)
 					System.out.println("C'est au tour du joueur : " + joueur.getNumero());
 				for (Vaisseau vaisseau : joueur.getFlotte()) {
-					System.out.println("Vous d�placez le vaisseau : " + vaisseau);
+					System.out.println("Vous d�placez le vaisseau : " + vaisseau);
 					while(vaisseau.getMovementPointLeft() > 0) {
-						System.out.println("Il vous reste " + vaisseau.getMovementPointLeft() + " d�placements avec " + vaisseau);
+						System.out.println("Il vous reste " + vaisseau.getMovementPointLeft() + " d�placements avec " + vaisseau);
 						String deplacement = scanner.nextLine();
 						while(!deplacement.equals("n") && !deplacement.equals("s") && !deplacement.equals("e") && !deplacement.equals("o")) {
 							deplacement = scanner.nextLine();
@@ -121,7 +122,7 @@ public class Map {
 				}
 			}
 		}
-	}
+	}**/
 
 
 
@@ -130,33 +131,45 @@ public class Map {
 	public static void main(String[] args) {
 		Map map = new Map(creationJoueur());
 		System.out.println(map);
-		map.play();
-		/**for (int i =0; i < 4; i++) {
-
-		for (int i =0; i < 4; i++) {
- 		branch 'master' of https://gitlab.univ-lille.fr/2020-S3-projet/groupe-23.git
-			while(map.flotte1.get(i).getMovementPointLeft() > 0) {
-				Scanner in = new Scanner(System.in);
-				Direction d;
-				String test = in.nextLine();
-				if (test.equalsIgnoreCase("n")) {
-					d = Direction.NORD;
-					map.flotte1.get(i).move(d);
+		boolean win = false;
+		while(!win) {
+			for (PlaneteRandom planete : map.planetesRandom) {
+				if(planete.getRecharge() != 5)
+					planete.setRecharge(planete.getRecharge() + 1);
+			}
+			for (Joueur joueur : joueursList) {
+				for (Vaisseau vaisseau : joueur.getFlotte()) {
+					vaisseau.setMovementPointLeft(vaisseau.getMovementPoint());
+				}
+				if(joueur.getFlotte().size() > 0)
+				for (Vaisseau vaisseau : joueur.getFlotte()) {
 					System.out.println(map);
-				}else if (test.equalsIgnoreCase("s")) {
-					d = Direction.SUD;
-					map.flotte1.get(i).move(d);
-					System.out.println(map);
-				}else if (test.equalsIgnoreCase("e")) {
-					d = Direction.EST;
-					map.flotte1.get(i).move(d);
-					System.out.println(map);
-				}else if (test.equalsIgnoreCase("o")) {
-					d = Direction.OUEST;
-					map.flotte1.get(i).move(d);
-					System.out.println(map);
+					while(vaisseau.getMovementPointLeft() > 0) {
+						System.out.println("\n               Joueur " + joueur.getNumero() + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
+						for (Vaisseau vaisseauMenu : joueur.getFlotte()) {
+							if(vaisseau == vaisseauMenu)
+								System.out.println("-> " +  vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
+							else {
+								System.out.println("   " + vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
+							}
+						}
+						String deplacement = scanner.nextLine();
+						while(!deplacement.equals("n") && !deplacement.equals("s") && !deplacement.equals("e") && !deplacement.equals("o")) {
+							deplacement = scanner.nextLine();
+						}
+						if (deplacement.equalsIgnoreCase("n")) {
+							vaisseau.move(Direction.NORD);
+						}else if (deplacement.equalsIgnoreCase("s")) {
+							vaisseau.move(Direction.SUD);
+						}else if (deplacement.equalsIgnoreCase("e")) {
+							vaisseau.move(Direction.EST);
+						}else if (deplacement.equalsIgnoreCase("o")) {
+							vaisseau.move(Direction.OUEST);
+						}
+						System.out.println(map.toString());
+					}
 				}
 			}
-		}**/
+		}
 	}
 }

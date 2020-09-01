@@ -60,6 +60,8 @@ public abstract class Planets extends Entities {
 
     public Planets(int ressources, String name, int x, int y) {
     	super(x, y);
+    	this.name = name;
+    	this.ressources = ressources;
     }
     /**public Planets(int ressources,String name) {
         super();
@@ -70,7 +72,7 @@ public abstract class Planets extends Entities {
 
     @Override
     public String toString() {
-        return "O";
+        return "○";
     }
 
     public void setName(String name) {
