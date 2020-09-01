@@ -5,6 +5,10 @@ public class Vaisseau extends Entities {
 	private VaisseauType type;
 	private int hp;
 	private int movementPointLeft;
+	private int ressources;
+	private int attaque;
+	private int capacity;
+
 
 
 	public Vaisseau(VaisseauType t,int x,int y) {
@@ -12,6 +16,9 @@ public class Vaisseau extends Entities {
 		this.type=t;
 		this.hp= type.getVie();
 		this.movementPointLeft = t.getMovementPoint();
+		this.ressources=0;
+		this.attaque=type.getAttaque();
+		this.capacity=type.getCapacity();
 	}
 
 
@@ -21,7 +28,7 @@ public class Vaisseau extends Entities {
 			this.getType().setL("☠");
 		}
 		this.setVie(this.getType().getVie()-attaquant.getType().getAttaque());
-		system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
+	//	system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
 	}
 
 
@@ -57,6 +64,42 @@ public class Vaisseau extends Entities {
 	public VaisseauType getType() {
 		return type;
 	}
+
+
+	public int getRessources() {
+		return ressources;
+	}
+
+
+	public void setRessources(int ressources) {
+		this.ressources = ressources;
+	}
+
+
+	public int getAttaque() {
+		return attaque;
+	}
+
+
+	public void setAttaque(int attaque) {
+		this.attaque = attaque;
+	}
+
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+
+	public void setType(VaisseauType type) {
+		this.type = type;
+	}
+
 
 	public boolean move(Direction d) {
 		if(		this.getPosition().update(d).getX() > 0 &&
