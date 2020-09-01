@@ -15,6 +15,14 @@ public class Vaisseau extends Entities {
 	}
 
 
+	public void Combat(Vaisseau attaquant) {
+		if (this.getType().getVie()-attaquant.getType().getAttaque()>=0){
+			this.setMovementPointLeft(0);
+			this.getType().setL("☠");
+		}
+		this.setVie(this.getType().getVie()-attaquant.getType().getAttaque());
+	}
+
 	public int getVie() {
 		return hp;
 	}
