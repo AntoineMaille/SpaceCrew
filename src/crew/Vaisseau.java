@@ -20,6 +20,7 @@ public class Vaisseau extends Entities {
 		this.attaque=type.getAttaque();
 		this.capacity=type.getCapacity();
 	}
+	
 
 
 	public void Combat(Vaisseau attaquant) {
@@ -56,7 +57,7 @@ public class Vaisseau extends Entities {
 
 
 	public void setPosition(Coordinates c) {
-		this.setPosition(c);
+		super.setPosition(c);
 	}
 
 
@@ -101,13 +102,12 @@ public class Vaisseau extends Entities {
 
 
 	public boolean move(Direction d) {
-		if(		this.getPosition().update(d).getX() > 0 &&
-				this.getPosition().update(d).getX() < Map.getLength() - 1 &&
-				this.getPosition().update(d).getX() > -1 &&
-				this.getPosition().update(d).getX() < Map.getLength()  && this.getPosition().update(d).getY() > -1 &&
+		if(		this.getPosition().update(d).getX() >= 0 &&
+				this.getPosition().update(d).getX() < Map.getLength()  && 
+				this.getPosition().update(d).getY() > -1 &&
 				this.getPosition().update(d).getY() < Map.getLength()  &&
 				Map.getCase(this.getPosition().update(d)) == null &&
-				this.movementPointLeft != 0) {
+				this.movementPointLeft > 0) {
 			if(Map.getCase(this.getPosition().update(d)) == null ) {
 				Map.deleteEntities(this);
 				this.setPosition(this.getPosition().update(d));
@@ -118,9 +118,13 @@ public class Vaisseau extends Entities {
 
 			else if(Map.getCase(this.getPosition().update(d)) instanceof PlaneteRandom) {
 				//if((PlaneteRandom)Map.getCase(this.getPosition().update(d).).get
-
+			}
+			else {
 			}
 		}
+		System.out.println(this.getPosition());
+		System.out.println(Map.getCase(this.getPosition().update(d)).getPosition());
+		System.out.println("ca passe pas");
 		return false;
 	}
 

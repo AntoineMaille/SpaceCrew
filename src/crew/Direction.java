@@ -6,7 +6,8 @@ public enum Direction {
 	private int y;
 
 	private Direction(int x, int y) {
-		
+		this.x = x;
+		this.y = y;
 	}
 
 	public int getX() {
