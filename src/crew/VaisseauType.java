@@ -6,12 +6,14 @@ public enum VaisseauType {
     	private int vie;
 		private int attaque;
 		private int movementPoint;
+		private int ressources;
 		
 		private VaisseauType(String l, int vie, int attaque, int movementPoint) {
 			this.l= l;
 			this.vie = vie;
 			this.attaque = attaque;
 			this.movementPoint = movementPoint;
+			this.ressources=0;
 		}
 
 		public String getL() {
@@ -32,6 +34,12 @@ public enum VaisseauType {
 		public int getMovementPoint() {
 			return movementPoint;
 		}
+
+		public int getRessources() {
+			return ressources;
+		}
+
+
 		
 		
 	
