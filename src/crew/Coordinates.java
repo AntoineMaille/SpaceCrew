@@ -35,6 +35,11 @@ public class Coordinates {
 		return new Coordinates(this.x + d.getX(), this.y + d.getY());
 	}
 	
+	@Override
+	public String toString() {
+		return "Coordinates [x=" + x + ", y=" + y + "]";
+	}
+	
 	
 	
 }

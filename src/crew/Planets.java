@@ -7,9 +7,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Planets extends Entities {
-    private int ressources;
-    private String name;
+public abstract class Planets extends Entities {
+	private int ressources;
+	private String name;
+	
+	public void setRessources(int ressources) {
+		this.ressources = ressources;
+	}
+
 
     public String nomPlanete() {
         String csvFile = "~/groupe-23/ressources/name_planets.csv";
@@ -69,4 +74,7 @@ public class Planets extends Entities {
         this.name = name;
     }
 
+
+	
+	
 }
