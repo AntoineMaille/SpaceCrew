@@ -37,4 +37,10 @@ public class PlaneteJoueur extends Planets{
 	}
 	
 	
+		public boolean Pleine() {
+		if (this.getRessources()==this.seuil) {
+			return true;
+		}
+		return false;
+	}
 }

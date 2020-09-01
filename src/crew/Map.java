@@ -1,16 +1,15 @@
 package crew;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Map {
 	private ArrayList<Joueur> joueursList;
 	private ArrayList<Planets> planetesRandom;
-	private static Random ran;
 	private static final int length = 20;
 	public static Entities [][] map = new Entities[length][length];
 	private int compteurPlanete = -1;
+
 
 
 	public static Entities[][] getMap() {
@@ -22,12 +21,16 @@ public class Map {
 		return length;
 	}
 
+
 	public Map(ArrayList<Joueur> joueurs) {
 		this.joueursList = new ArrayList<Joueur>();
 		planetesRandom = new ArrayList<Planets>();
 		for (Joueur joueur : joueurs) {
 			this.joueursList.add(joueur);
-			this.addPlanet(joueur.getPlanete());
+			Map.addEntities(joueur.getPlanete());
+			for (Vaisseau vaisseau : joueur.getFlotte()) {
+				Map.addEntities(vaisseau);
+			}
 		}
 		for (int i = 0; i < (Map.length); i++) {
 			for (int j = 0; j < (Map.length); j++) {
@@ -41,9 +44,6 @@ public class Map {
 		}
 	}
 
-	public void addPlanet(Planets p) {
-		Map.map [p.getPosition().getX()][p.getPosition().getY()] = p;
-	}
 
 	public String toString() {
 		StringBuilder res = new StringBuilder();
@@ -54,12 +54,12 @@ public class Map {
 			}
 			res.append('\n');
 			for (int colonne = 0; colonne < Map.length; colonne++) {
+
 				if( map[ligne] [colonne] instanceof Planets || map[ligne][colonne] instanceof Vaisseau)
 					res.append("| " + map[ligne][colonne].toString() + " ");
 				else {
 					res.append("|   ");
 				}
-				//
 			}
 			res.append("|");
 		}
@@ -67,12 +67,18 @@ public class Map {
 	}
 
 	public static Entities getCase(Coordinates c) {
-			return Map.map [c.getX()][c.getY()];
+		return Map.map [c.getX()][c.getY()];
 	}
 
-	public static void setVaisseau(Coordinates c, Vaisseau v) {
-		Map.getMap() [c.getX()][c.getY()] = v;
+	public static void addEntities(Entities e) {
+		Map.map [e.getPosition().getX()][e.getPosition().getY()] = e;
 	}
+
+	public static void deleteEntities(Entities e) {
+		Map.map [e.getPosition().getX()][e.getPosition().getY()] = null;
+	}
+
+
 
 	public static ArrayList<Joueur> creationJoueur() {
 		ArrayList<Joueur> joueurs = new ArrayList<>();
@@ -90,8 +96,33 @@ public class Map {
 		return joueurs;
 	}
 
+
 	public static void main(String[] args) {
 		Map map = new Map(creationJoueur());
 		System.out.println(map);
+		/**for (int i =0; i < 4; i++) {
+			while(map.flotte1.get(i).getMovementPointLeft() > 0) {
+				Scanner in = new Scanner(System.in);
+				Direction d;
+				String test = in.nextLine();
+				if (test.equalsIgnoreCase("n")) {
+					d = Direction.NORD;
+					map.flotte1.get(i).move(d);
+					System.out.println(map);
+				}else if (test.equalsIgnoreCase("s")) {
+					d = Direction.SUD;
+					map.flotte1.get(i).move(d);
+					System.out.println(map);
+				}else if (test.equalsIgnoreCase("e")) {
+					d = Direction.EST;
+					map.flotte1.get(i).move(d);
+					System.out.println(map);
+				}else if (test.equalsIgnoreCase("o")) {
+					d = Direction.OUEST;
+					map.flotte1.get(i).move(d);
+					System.out.println(map);
+				}
+			}
+		}**/
 	}
 }
