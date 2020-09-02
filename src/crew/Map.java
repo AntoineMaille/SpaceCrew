@@ -5,13 +5,14 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Map {
-	private ArrayList<Joueur> winners=new ArrayList();
+	private ArrayList<Joueur> winners=new ArrayList<Joueur>();
 	private static ArrayList<Joueur> joueursList;
 	private ArrayList<PlaneteRandom> planetesRandom;
 	private static final int length = 16;
 	public static Entities [][] map = new Entities[length][length];
 	private int compteurPlanete = -1;
 	private static Scanner scanner = new Scanner(System.in);
+	private PlaneteMarche marche;
 
 
 	public static Entities[][] getMap() {
@@ -36,7 +37,7 @@ public class Map {
 		}
 		for (int i = 0; i < (Map.length); i++) {
 			for (int j = 0; j < (Map.length); j++) {
-				if((((int) (Math.random() * 15))  >= 14) 
+				if((((int) (Math.random() * 15))  >= 13) 
 						&& (!((i > -1 && i < 4) && (j > -1 && j < 4))) 
 						&& (!((i > Map.length - 5 && i < Map.length) && ( j > Map.length - 5 && j < Map.length))) 
 						&& (!((i > (Map.length/2 - 3) && i < (Map.length/2 + 2)) && ( j > (Map.length/2 - 3) && j < (Map.length/2 + 2))))
@@ -48,6 +49,8 @@ public class Map {
 				}
 			}
 		}
+		marche = new PlaneteMarche();
+		Map.addEntities(marche);
 	}
 
 	@Override
@@ -73,7 +76,7 @@ public class Map {
 	}
 
 	public static Entities getCase(Coordinates c) {
-		return Map.map [c.getX()][c.getY()];
+		return Map.map [c.getX()][c.getY()];			
 	}
 
 	public static void addEntities(Entities e) {
@@ -92,6 +95,7 @@ public class Map {
 		System.out.println("Combien voulez-vous d'équipes ? : ");
 		while(!scanner.hasNextInt()) {		
 			System.out.println("Vous devez entrer un int");
+			scanner.hasNextInt();
 		}
 		nbEquipe = scanner.nextInt();
 		for (int nbJoueurs = 0; nbJoueurs < nbEquipe; nbJoueurs++) {
@@ -164,11 +168,12 @@ public class Map {
 			}
 		}
 		return false;
-	}
+}
+
 
 	public static void main(String[] args) {
 		Map map = new Map(creationJoueur());
-		System.out.println(map);
+		boolean win = false;
 		while(!map.win()) {
 			for (PlaneteRandom planete : map.planetesRandom) {
 				if(planete.getRecharge() != 5)
@@ -179,35 +184,34 @@ public class Map {
 					vaisseau.setMovementPointLeft(vaisseau.getMovementPoint());
 				}
 				if(joueur.getFlotte().size() > 0)
-					for (Vaisseau vaisseau : joueur.getFlotte()) {
-						System.out.println(map);
-						while(vaisseau.getMovementPointLeft() > 0) {
-							System.out.println("\n               Joueur " + joueur.getNumero() + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
-							for (Vaisseau vaisseauMenu : joueur.getFlotte()) {
-								if(vaisseau == vaisseauMenu)
-									System.out.println("-> " +  vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
-								else {
-									System.out.println("   " + vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
-								}
+				for (Vaisseau vaisseau : joueur.getFlotte()) {
+					System.out.println(map);
+					while(vaisseau.getMovementPointLeft() > 0) {
+						System.out.println("\n               Joueur " + joueur.getNumero() + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
+						for (Vaisseau vaisseauMenu : joueur.getFlotte()) {
+							if(vaisseau == vaisseauMenu)
+								System.out.println("-> " +  vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🗡   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        ►  " + vaisseauMenu.getMovementPointLeft());
+							else {
+								System.out.println("   " + vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🗡   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        ►  " + vaisseauMenu.getMovementPointLeft());
 							}
-							String deplacement = scanner.nextLine();
-							while(!deplacement.equals("n") && !deplacement.equals("s") && !deplacement.equals("e") && !deplacement.equals("o")) {
-								deplacement = scanner.nextLine();
-							}
-							if (deplacement.equalsIgnoreCase("n")) {
-								vaisseau.move(Direction.NORD);
-							}else if (deplacement.equalsIgnoreCase("s")) {
-								vaisseau.move(Direction.SUD);
-							}else if (deplacement.equalsIgnoreCase("e")) {
-								vaisseau.move(Direction.EST);
-							}else if (deplacement.equalsIgnoreCase("o")) {
-								vaisseau.move(Direction.OUEST);
-							}
-							System.out.println(map.toString());
 						}
+						String deplacement = scanner.nextLine();
+						while(!deplacement.equals("z") && !deplacement.equals("s") && !deplacement.equals("d") && !deplacement.equals("q")) {
+							deplacement = scanner.nextLine();
+						}
+						if (deplacement.equalsIgnoreCase("z")) {
+							vaisseau.move(Direction.NORD);
+						}else if (deplacement.equalsIgnoreCase("s")) {
+							vaisseau.move(Direction.SUD);
+						}else if (deplacement.equalsIgnoreCase("d")) {
+							vaisseau.move(Direction.EST);
+						}else if (deplacement.equalsIgnoreCase("q")) {
+							vaisseau.move(Direction.OUEST);
+						}
+						System.out.println(map.toString());
 					}
+				}
 			}
 		}
-		System.out.println("C'est fini !!");
 	}
 }

@@ -3,6 +3,7 @@ package crew;
 import java.util.Scanner;
 
 public class PlaneteMarche extends Planets {
+	
 	private String name;
 	private Coordinates p1;
 	private Coordinates p2;
@@ -12,7 +13,7 @@ public class PlaneteMarche extends Planets {
 	
 
 	public PlaneteMarche() {
-		super(0, "March�" , 0 , 0);
+		super(0, "March�" , Map.getLength()/2-1, Map.getLength()/2-1);
 		this.name="Marché";
 		this.p1=new Coordinates(Map.getLength()/2-1, Map.getLength()/2-1);
 		this.p2=new Coordinates(Map.getLength()/2-1, Map.getLength()/2);
@@ -238,7 +239,10 @@ public class PlaneteMarche extends Planets {
 		}
 	}	
 
-	
+	@Override
+	public String toString() {
+		return "$";
+	}
 	
 	
 	

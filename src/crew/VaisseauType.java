@@ -21,6 +21,10 @@ public enum VaisseauType {
 		public String getName() {
 			return name;
 		}
+		
+		public void setDisplayedName(String n){
+			this.name=n;
+		}
 
 		public int getVie() {
 			return vie;
