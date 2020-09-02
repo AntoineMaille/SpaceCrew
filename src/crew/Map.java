@@ -174,6 +174,21 @@ public class Map {
 
 
 	public static void main(String[] args) {
+		System.out.println("Règles de base :\n" + 
+				"\n" + 
+				"-Le but final est de détruire l'univers de 2 manières possibles:\n" + 
+				"    -Détruire la flotte adverse\n" + 
+				"    -Construire une étoile de la mort\n" + 
+				"\n" + 
+				"Votre flotte peut atterir sur les diverses planètes de l'univers pour collecter des matériaux qui vous serviront à améliorer vos vaisseaux OU les déposer dans votre camp pour vous rapprocher de la construction de votre étoile.\n" + 
+				"\n" + 
+				"Au centre de l'univers se trouve le marché où vous pourrez améliorer les vaisseaux débordant de matériaux.\n" + 
+				"\n" + 
+				"Vous pouvez également attaquer les vaisseaux adverses pour potentiellement les détruire et piller leurs ressources !\n" + 
+				"\n" + 
+				"Bonne chance et bon jeu dans l'univers impitoyable de SpaceCrew !");
+		try{System.in.read();}
+		catch(Exception e){}
 		Map map = new Map(creationJoueur());
 		while(!map.win()) {
 			for (PlaneteRandom planete : map.planetesRandom) {
