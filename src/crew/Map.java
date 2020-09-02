@@ -7,7 +7,7 @@ public class Map {
 	private ArrayList<Joueur> winners=new ArrayList<Joueur>();
 	private static ArrayList<Joueur> joueursList;
 	private ArrayList<PlaneteRandom> planetesRandom;
-	private static final int length = 10;
+	private static final int length = 16;
 	public static Entities [][] map = new Entities[length][length];
 	private int compteurPlanete = -1;
 	private static Scanner scanner = new Scanner(System.in);
@@ -200,6 +200,7 @@ public class Map {
 				"Bonne chance et bon jeu dans l'univers impitoyable de SpaceCrew !");
 		try{System.in.read();}
 		catch(Exception e){}
+		clear();
 		Map map = new Map(creationJoueur());
 		while(!map.win()) {
 			for (PlaneteRandom planete : map.planetesRandom) {
@@ -211,6 +212,7 @@ public class Map {
 					vaisseau.setMovementPointLeft(vaisseau.getMovementPoint());
 				}
 				for (Vaisseau vaisseau : joueur.getFlotte()) {
+					clear();
 					System.out.println(map);
 					while(vaisseau.getMovementPointLeft() > 0) {
 						System.out.println("\n" + map.getColors()[joueur.getNumero() - 1] + "               Joueur " + joueur.getNumero() + map.getColors()[map.getColors().length - 1] + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
@@ -234,7 +236,6 @@ public class Map {
 						}else if (deplacement.equalsIgnoreCase("q")) {
 							vaisseau.move(Direction.OUEST);
 						}
-						System.out.println(map.toString());
 					}
 				}
 			}
@@ -243,5 +244,9 @@ public class Map {
 		for (Joueur winners : map.winners) {
 			System.out.println(winners.getNumero() +  " ");
 		}
+	}
+	public static void clear() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
 	}
 }
