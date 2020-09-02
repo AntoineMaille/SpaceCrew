@@ -16,6 +16,12 @@ public class Vaisseau extends Entities {
 	private int joueur;
 	private int ressources;
 	private static Scanner in = new Scanner(System.in);
+	public static final String ANSI_BLUE = "\u001B[34m";
+	public static final String ANSI_PURPLE = "\u001B[35m";
+	public static final String ANSI_CYAN = "\u001B[36m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_RESET = "\u001B[0m";
+	private String [] colors = new String []{"\u001B[34m", "\u001B[35m","\u001B[36m", "\u001B[31m","\u001B[0m"};
 
 
 
@@ -378,6 +384,6 @@ public class Vaisseau extends Entities {
 
 
 	public String toString() {
-		return this.getIcone() + "";
+		return this.colors[this.joueur - 1] + this.getIcone() + this.colors[4]+"";
 	}
 }

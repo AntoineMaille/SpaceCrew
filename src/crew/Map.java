@@ -230,7 +230,7 @@ public class Map {
 		}
 		System.out.println("le(s) vainqeurs sont :");
 		for (Joueur winners : map.winners) {
-			System.out.println(winners.getNumero());
+			System.out.println(winners.getNumero() +  " ");
 		}
 	}
 }
