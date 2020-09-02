@@ -230,6 +230,9 @@ public class Vaisseau extends Entities {
 			}
 			else if (Map.getCase(this.getPosition().update(d)) instanceof Vaisseau){
 				Combat((Vaisseau)Map.getCase(this.getPosition().update(d)));
+			}
+		}
+		return false;
 	}
 
 
@@ -251,12 +254,12 @@ public class Vaisseau extends Entities {
 	public void aterissagePlaneteRandom(PlaneteRandom p) {
 		System.out.println("Vous atterissez sur " + p.getName());
 		if(p.getRecharge() < 5) {
-			System.out.println("Malheureusement la planète est vide, vous repartez");
+			System.out.println("Malheureusement la plan�te est vide, vous repartez");
 			try{System.in.read();}
 			catch(Exception e){}
 		}
 		else {
-			System.out.println("Vous trouvez " + p.getRessources() + " débris");
+			System.out.println("Vous trouvez " + p.getRessources() + " d�bris");
 			if(p.getRessources() > this.getCapacity() - this.ressources) {
 				System.out.println("Malheureusement vous ne pouvez en prendre que " + (this.getCapacity() - this.ressources) + " car vous n'avez pas assez de place dans votre soute" );
 				this.ressources = this.getCapacity();
@@ -280,3 +283,4 @@ public class Vaisseau extends Entities {
 		return this.getName() + "";
 	}
 }
+
