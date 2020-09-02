@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlaneteMarche extends Planets {
+	
 	private String name;
 	private Coordinates p1;
 	private Coordinates p2;
@@ -62,13 +63,7 @@ public class PlaneteMarche extends Planets {
 	public String toString() {
 		return "$";
 	}
-	
-	
-	
 
-	
-
-	
 	
 	
 	

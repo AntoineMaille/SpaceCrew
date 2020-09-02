@@ -276,19 +276,57 @@ public class Vaisseau extends Entities {
 	}
 
 
-	public void combat(Vaisseau attaquant) {
-		if(this.joueur == attaquant.getJoueur()) {
+	public void combat(Vaisseau defenseur){
+		if(this.joueur == defenseur.getJoueur()) {
 			System.out.println("Vous ne pouvez pas attaquer votre propre flotte");
-		}
-		else {
-			if (this.getVie() - attaquant.getAttaque()>=0){
-				this.setMovementPointLeft(0);
-				this.setName("☠");
+		}else{
+			this.setMovementPointLeft(this.movementPointLeft-1);
+			//defenseur subi les degats
+			defenseur.setVie(defenseur.getVie()-this.getAttaque());
+			System.out.println("Le vaisseau défenseur a subi "+this.getAttaque()+" il lui reste : "+defenseur.getVie()+" points de vie.");
+			//defenseur meurt
+			if(defenseur.getVie()<=0) {
+				defenseur.setVie(0);
+				//recupere ressources
+				System.out.println(defenseur.getType().getName()+"du joueur"+defenseur.getJoueur()+"est détruit.");
+				if((this.getRessources()+defenseur.getRessources())>this.getCapacity()) {
+					System.out.println("Le vaisseau du joueur "+this.getJoueur()+"a récupéré "+(this.getCapacity()-this.getRessources())+" débris!");
+					this.setRessources(this.getCapacity());				
+				}else {
+					System.out.println("Le vaisseau du joueur "+this.getJoueur()+"a récupéré "+defenseur.getRessources()+" débris!");
+					this.setRessources(this.getRessources()+defenseur.getRessources());
+				}		
+				//defenseur supprimé
+				defenseur.setMovementPointLeft(0);
+				defenseur.setMovementPoint(0);
+				defenseur.setName("☠");
+				Map.deleteEntities(defenseur);
+			}else {
+				//attaquant subi les dégats.
+				this.setVie(this.getVie()-(int)(defenseur.getAttaque()/3));
+				System.out.println("Le vaisseau attaquant a subi "+(int)(defenseur.getAttaque())/3+" il lui reste "+this.getVie()+" points de vie");
+				//attaquant meurt
+				if(this.getVie()<=0){
+					this.setVie(0);
+					System.out.println(this.getType().getName()+"du joueur"+this.getJoueur()+"est détruit.");
+					//recupere les ressources
+					if((defenseur.getRessources()+this.getRessources())>defenseur.getCapacity()) {
+						System.out.println("Le vaisseau du joueur "+defenseur.getJoueur()+"a récupéré "+(defenseur.getCapacity()-defenseur.getRessources())+" débris!");
+						this.setRessources(this.getCapacity());	
+					}else {
+						defenseur.setRessources(defenseur.getRessources()+this.getRessources());
+						System.out.println("Le vaisseau du joueur "+defenseur.getJoueur()+"a récupéré "+this.getRessources()+" débris!");
+						//supprime le vaisseau de l'attaquant
+						this.setMovementPointLeft(0);
+						this.setMovementPoint(0);
+						this.setName("☠");
+						Map.deleteEntities(this);
+					}
+				}
 			}
-			this.setVie(this.getVie()-attaquant.getAttaque());
-			//system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
 		}
 	}
+
 
 	public void deposDebris(PlaneteJoueur p) {
 		if(p.getJoueur() != this.joueur) {

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Map {
+	private ArrayList<Joueur> winners=new ArrayList<Joueur>();
 	private static ArrayList<Joueur> joueursList;
 	private ArrayList<PlaneteRandom> planetesRandom;
 	private static final int length = 10;
 	public static Entities [][] map = new Entities[length][length];
 	private int compteurPlanete = -1;
 	private static Scanner scanner = new Scanner(System.in);
+	private PlaneteMarche marche;
 
 
 	public static Entities[][] getMap() {
@@ -35,13 +37,20 @@ public class Map {
 		}
 		for (int i = 0; i < (Map.length); i++) {
 			for (int j = 0; j < (Map.length); j++) {
-				if((((int) (Math.random() * 15))  >= 14) && (!((i > -1 && i < 4)&& (j > -1 && j < 4))) && (!((i > Map.length - 5 && i < Map.length) && ( j > Map.length - 5 && j < Map.length))) && (!((i > (Map.length/2 - 3) && i < (Map.length/2 + 2)) && ( j > (Map.length/2 - 3) && j < (Map.length/2 + 2))))) {
+				if((((int) (Math.random() * 15))  >= 13) 
+						&& (!((i > -1 && i < 4) && (j > -1 && j < 4))) 
+						&& (!((i > Map.length - 5 && i < Map.length) && ( j > Map.length - 5 && j < Map.length))) 
+						&& (!((i > (Map.length/2 - 3) && i < (Map.length/2 + 2)) && ( j > (Map.length/2 - 3) && j < (Map.length/2 + 2))))
+						&& (!((i > -1 && i < 4) && (j > Map.length - 5 && j < Map.length)))
+						&& (!((j > -1 && j < 4) && (i > Map.length - 5 && i < Map.length)))){
 					this.planetesRandom.add(new PlaneteRandom(i ,j));
 					compteurPlanete++;
 					Map.addEntities(this.planetesRandom.get(compteurPlanete));
 				}
 			}
 		}
+		marche = new PlaneteMarche();
+		Map.addEntities(marche);
 	}
 
 	@Override
@@ -67,7 +76,7 @@ public class Map {
 	}
 
 	public static Entities getCase(Coordinates c) {
-		return Map.map [c.getX()][c.getY()];
+		return Map.map [c.getX()][c.getY()];			
 	}
 
 	public static void addEntities(Entities e) {
@@ -82,10 +91,13 @@ public class Map {
 
 	public static ArrayList<Joueur> creationJoueur() {
 		ArrayList<Joueur> joueurs = new ArrayList<>();
-		int nbEquipe = 0;
+		int nbEquipe;
 		System.out.println("Combien voulez-vous d'équipes ? : ");
-		if(scanner.hasNextInt())
-			nbEquipe = scanner.nextInt();
+		while(!scanner.hasNextInt()) {		
+			System.out.println("Vous devez entrer un int");
+			scanner.hasNextInt();
+		}
+		nbEquipe = scanner.nextInt();
 		for (int nbJoueurs = 0; nbJoueurs < nbEquipe; nbJoueurs++) {
 			joueurs.add(new Joueur(nbJoueurs + 1, "toto", new PlaneteJoueur(PlaneteInitEnum.values() [nbJoueurs], nbJoueurs + 1)));
 		}
@@ -99,7 +111,7 @@ public class Map {
 				if(joueur.getFlotte().size() > 0)
 					System.out.println("C'est au tour du joueur : " + joueur.getNumero());
 				for (Vaisseau vaisseau : joueur.getFlotte()) {
-					System.out.println("Vous d�placez le vaisseau : " + vaisseau);
+					System.out.println("Vous déplacez le vaisseau : " + vaisseau);
 					while(vaisseau.getMovementPointLeft() > 0) {
 						System.out.println("Il vous reste " + vaisseau.getMovementPointLeft() + " d�placements avec " + vaisseau);
 						String deplacement = scanner.nextLine();
@@ -123,14 +135,46 @@ public class Map {
 	}**/
 
 
-
+	public static void mort(Vaisseau v) {
+		for (Joueur j : joueursList) {
+			for (Vaisseau cible : j.getFlotte()) {
+				if (v.equals(cible)) {
+					Map.deleteEntities(v);
+					j.getFlotte().remove(v);
+				}
+			}
+		}
+	}
+	public boolean win() {
+		this.winners.clear();
+		for (Joueur j : joueursList) {
+			if(j.getPlanete().getRessources()>=PlaneteJoueur.getSeuil()) {
+				winners.add(j);
+			}
+		}
+		if(this.winners.size()> 0) {
+			return true;
+		}
+		else {
+			for (Joueur joueur : joueursList) {
+				for (Vaisseau v : joueur.getFlotte()) {
+					if(v.getVie() > 0) {
+						winners.add(joueur);
+					}
+				}
+			}
+			if(winners.size() == 1) {
+				return true;
+			}
+		}
+		return false;
+}
 
 
 	public static void main(String[] args) {
 		Map map = new Map(creationJoueur());
-		System.out.println(map);
 		boolean win = false;
-		while(!win) {
+		while(!map.win()) {
 			for (PlaneteRandom planete : map.planetesRandom) {
 				if(planete.getRecharge() != 5)
 					planete.setRecharge(planete.getRecharge() + 1);
@@ -169,5 +213,6 @@ public class Map {
 				}
 			}
 		}
+		System.out.println("C'est fini !");
 	}
 }

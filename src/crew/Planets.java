@@ -72,7 +72,7 @@ public abstract class Planets extends Entities {
 
     @Override
     public String toString() {
-        return "○";
+        return "●";
     }
 
     public void setName(String name) {
