@@ -27,8 +27,10 @@ public class Vaisseau extends Entities {
 		this.ressources=0;
 	}
 	
-
-	public void Combat(Vaisseau attaquant) {
+	public void Combat(Vaisseau v) {
+		
+	}
+	/*public void Combat(Vaisseau attaquant) {
 			System.out.println("Voulez vous attaquer cette cible ? (o/n)");
 		Scanner sc=new Scanner(System.in);
 		String choix = sc.nextLine();
@@ -58,7 +60,7 @@ public class Vaisseau extends Entities {
 			}	
 		}
 		}
-	}
+	}*/
 
 
 	public int getVie() {

@@ -7,10 +7,11 @@ import java.util.Scanner;
 public class Map {
 	private static ArrayList<Joueur> joueursList;
 	private ArrayList<PlaneteRandom> planetesRandom;
-	private static final int length = 10;
+	private static final int length = 16;
 	public static Entities [][] map = new Entities[length][length];
 	private int compteurPlanete = -1;
 	private static Scanner scanner = new Scanner(System.in);
+	private PlaneteMarche marche;
 
 
 	public static Entities[][] getMap() {
@@ -35,7 +36,7 @@ public class Map {
 		}
 		for (int i = 0; i < (Map.length); i++) {
 			for (int j = 0; j < (Map.length); j++) {
-				if((((int) (Math.random() * 15))  >= 10) 
+				if((((int) (Math.random() * 15))  >= 13) 
 						&& (!((i > -1 && i < 4) && (j > -1 && j < 4))) 
 						&& (!((i > Map.length - 5 && i < Map.length) && ( j > Map.length - 5 && j < Map.length))) 
 						&& (!((i > (Map.length/2 - 3) && i < (Map.length/2 + 2)) && ( j > (Map.length/2 - 3) && j < (Map.length/2 + 2))))
@@ -47,6 +48,8 @@ public class Map {
 				}
 			}
 		}
+		marche = new PlaneteMarche();
+		Map.addEntities(marche);
 	}
 
 	@Override
@@ -72,7 +75,7 @@ public class Map {
 	}
 
 	public static Entities getCase(Coordinates c) {
-		return Map.map [c.getX()][c.getY()];
+		return Map.map [c.getX()][c.getY()];			
 	}
 
 	public static void addEntities(Entities e) {
@@ -91,6 +94,7 @@ public class Map {
 		System.out.println("Combien voulez-vous d'équipes ? : ");
 		while(!scanner.hasNextInt()) {		
 			System.out.println("Vous devez entrer un int");
+			scanner.hasNextInt();
 		}
 		nbEquipe = scanner.nextInt();
 		for (int nbJoueurs = 0; nbJoueurs < nbEquipe; nbJoueurs++) {
@@ -144,7 +148,6 @@ public class Map {
 
 	public static void main(String[] args) {
 		Map map = new Map(creationJoueur());
-		System.out.println(map);
 		boolean win = false;
 		while(!win) {
 			for (PlaneteRandom planete : map.planetesRandom) {
