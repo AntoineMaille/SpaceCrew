@@ -83,7 +83,7 @@ public class Map {
 	public static ArrayList<Joueur> creationJoueur() {
 		ArrayList<Joueur> joueurs = new ArrayList<>();
 		int nbEquipe;
-		System.out.println("Combien voulez-vous d'�quipes ? : ");
+		System.out.println("Combien voulez-vous d'équipes ? : ");
 		while(!scanner.hasNextInt()) {		
 			System.out.println("Vous devez entrer un int");
 		}
@@ -101,7 +101,7 @@ public class Map {
 				if(joueur.getFlotte().size() > 0)
 					System.out.println("C'est au tour du joueur : " + joueur.getNumero());
 				for (Vaisseau vaisseau : joueur.getFlotte()) {
-					System.out.println("Vous d�placez le vaisseau : " + vaisseau);
+					System.out.println("Vous déplacez le vaisseau : " + vaisseau);
 					while(vaisseau.getMovementPointLeft() > 0) {
 						System.out.println("Il vous reste " + vaisseau.getMovementPointLeft() + " d�placements avec " + vaisseau);
 						String deplacement = scanner.nextLine();
