@@ -34,15 +34,6 @@ public class Vaisseau extends Entities {
 		if(this.joueur == defenseur.getJoueur()) {
 			System.out.println("Vous ne pouvez pas attaquer votre propre flotte");
 		}else{
-		System.out.println("Voulez vous attaquer cette cible ? (o/n)");
-		Scanner sc=new Scanner(System.in);
-		String choix = sc.nextLine();
-		while(!choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n")) {
-			System.out.println("ce n'est pas une réponse valable, répondez par O ou N .");
-			choix=sc.nextLine();
-		}
-		sc.close();
-		if(choix.equalsIgnoreCase("o")){
 			this.setMovementPointLeft(this.movementPointLeft-1);
 			//defenseur subi les degats
 		defenseur.setVie(defenseur.getVie()-this.getAttaque());
@@ -62,6 +53,7 @@ public class Vaisseau extends Entities {
 			//defenseur supprimé
 			defenseur.setMovementPointLeft(0);
 			defenseur.setMovementPoint(0);
+			defenseur.setAttaque(0);
 			defenseur.setName('☠');
 			Map.deleteEntities(defenseur);
 			}else {
@@ -82,6 +74,7 @@ public class Vaisseau extends Entities {
 				//supprime le vaisseau de l'attaquant
 				this.setMovementPointLeft(0);
 				this.setMovementPoint(0);
+				this.setAttaque(0);
 				this.setName('☠');
 				Map.deleteEntities(this);
 				}
@@ -89,7 +82,7 @@ public class Vaisseau extends Entities {
 			  }
 			 }
 		    }
-	}
+	
 
 
 	public int getVie() {
