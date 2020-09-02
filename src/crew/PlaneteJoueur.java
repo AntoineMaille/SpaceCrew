@@ -2,7 +2,7 @@ package crew;
 
 public class PlaneteJoueur extends Planets{
 	private int joueur;
-	private static int seuil = 15000;
+	private static int seuil = 150;
 	public PlaneteInitEnum positionInit;
 	
 	

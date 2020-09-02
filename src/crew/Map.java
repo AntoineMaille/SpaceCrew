@@ -148,7 +148,7 @@ public class Map {
 	public boolean win() {
 		this.winners.clear();
 		for (Joueur j : joueursList) {
-			if(j.getPlanete().getRessources()==PlaneteJoueur.getSeuil()) {
+			if(j.getPlanete().getRessources()>=PlaneteJoueur.getSeuil()) {
 				winners.add(j);
 			}
 		}
@@ -213,5 +213,6 @@ public class Map {
 				}
 			}
 		}
+		System.out.println("C'est fini !");
 	}
 }
