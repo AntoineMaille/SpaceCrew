@@ -60,6 +60,7 @@ public class Vaisseau extends Entities {
 				this.setRessources(this.getRessources()+defenseur.getRessources());
 			}		
 			//defenseur supprimé
+			defenseur.setMovementPointLeft(0);
 			defenseur.setMovementPoint(0);
 			defenseur.setName('☠');
 			Map.deleteEntities(defenseur);
@@ -79,6 +80,7 @@ public class Vaisseau extends Entities {
 				defenseur.setRessources(defenseur.getRessources()+this.getRessources());
 				System.out.println("Le vaisseau du joueur "+defenseur.getJoueur()+"a récupéré "+this.getRessources()+" débris!");
 				//supprime le vaisseau de l'attaquant
+				this.setMovementPointLeft(0);
 				this.setMovementPoint(0);
 				this.setName('☠');
 				Map.deleteEntities(this);
