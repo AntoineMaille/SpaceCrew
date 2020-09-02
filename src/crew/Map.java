@@ -205,9 +205,9 @@ public class Map {
 						System.out.println("\n               Joueur " + joueur.getNumero() + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
 						for (Vaisseau vaisseauMenu : joueur.getFlotte()) {
 							if(vaisseau == vaisseauMenu)
-								System.out.println("-> " +  vaisseauMenu.getName() + ":  ❤️  " + vaisseauMenu.getVie() + "/" + vaisseauMenu.getHpcapacity() +"         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
+								System.out.println("-> " +  vaisseauMenu.getName() + ":  ❤️  " + vaisseauMenu.getVie() + "/" + vaisseauMenu.getHpcapacity() +"         🗡   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        ►  " + vaisseauMenu.getMovementPointLeft());
 							else {
-								System.out.println("   " + vaisseauMenu.getName() + ":  ❤️  " + vaisseauMenu.getVie() + "/" + vaisseauMenu.getHpcapacity() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
+								System.out.println("   " + vaisseauMenu.getName() + ":  ❤️  " + vaisseauMenu.getVie() + "/" + vaisseauMenu.getHpcapacity() + "         🗡   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        ►  " + vaisseauMenu.getMovementPointLeft());
 							}
 						}
 						String deplacement = scanner.nextLine();
