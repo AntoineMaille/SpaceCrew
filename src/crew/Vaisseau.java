@@ -29,17 +29,8 @@ public class Vaisseau extends Entities {
 	
 
 
-	public void Combat(Vaisseau attaquant) {
-		this.setVie(this.getType().getVie()-attaquant.getType().getAttaque());
-		if(this.getVie()<=0) {
-			this.setMovementPointLeft(0);
-			this.setName('☠');
-			attaquant.setRessources(this.getRessources()+attaquant.ressources); 
-		}
-		
-		//system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
 
-	}
+	
 
 
 	public int getVie() {
@@ -202,7 +193,7 @@ public class Vaisseau extends Entities {
 				this.setName('☠');
 			}
 			this.setVie(this.getHp()-attaquant.getAttaque());
-			//system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getVie()-attaquant.getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
+		//	system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+attaquant.getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
 		}
 	}
 
