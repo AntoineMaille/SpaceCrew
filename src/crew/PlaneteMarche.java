@@ -1,5 +1,6 @@
 package crew;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlaneteMarche extends Planets {
@@ -8,21 +9,24 @@ public class PlaneteMarche extends Planets {
 	private Coordinates p2;
 	private Coordinates p3;
 	private Coordinates p4;
-	private Vaisseau estPresent;
+	private ArrayList<Coordinates> coordonees;
 	
 
 	public PlaneteMarche() {
-		super(0, "March�" , 0 , 0);
+		super(0, "Marché" ,Map.getLength()/2-1, Map.getLength()/2-1);
 		this.name="Marché";
+		this.coordonees = new ArrayList<Coordinates>();
 		this.p1=new Coordinates(Map.getLength()/2-1, Map.getLength()/2-1);
+		coordonees.add(p1);
 		this.p2=new Coordinates(Map.getLength()/2-1, Map.getLength()/2);
+		coordonees.add(p2);
 		this.p3=new Coordinates(Map.getLength()/2, Map.getLength()/2-1);
+		coordonees.add(p3);
 		this.p4=new Coordinates(Map.getLength()/2, Map.getLength()/2);
-			Map.getMap()[p1.getX()][p1.getY()]=this;
-			Map.getMap()[p2.getX()][p2.getY()]=this;
-			Map.getMap()[p3.getX()][p3.getY()]=this;
-			Map.getMap()[p4.getX()][p4.getY()]=this;
-			estPresent=null;
+		coordonees.add(p4);
+		for (Coordinates coordinates : coordonees) {
+			Map.map [coordinates.getX()][coordinates.getY()]= this;
+		}
 	}
 	public String getName() {
 		return name;
@@ -54,189 +58,15 @@ public class PlaneteMarche extends Planets {
 	public void setP4(Coordinates p4) {
 		this.p4 = p4;
 	}
-	public Vaisseau getEstPresent() {
-		return estPresent;
-	}
-	public void setEstPresent(Vaisseau estPresent) {
-		this.estPresent = estPresent;
+	@Override
+	public String toString() {
+		return "$";
 	}
 	
-	public void Rencontre(Vaisseau stranger) {
-		this.estPresent=stranger;
-		if(estPresent.getRessources() == estPresent.getType().getCapacity()) {
-			Amelioration();
-		}else {
-			System.out.println("Vous n'avez aucune ressources, revenez plus tard.");
-			this.estPresent=null;
-		}
-		
-	}
-	public void Amelioration() {
-		System.out.println("Voulez vous améliorer votre vaisseau ?");
-		
-	}
-	public void AmeliorationPV() {
-		if(estPresent.getType()==VaisseauType.CHASSEUR) {
-			System.out.println("Pour améliorer votre vaisseau de 10 PV, cela vous coutera 15 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setVie(this.estPresent.getVie()+10);
-			this.estPresent.setRessources(this.getRessources()-20);
-			
-			
-		}else if(estPresent.getType()==VaisseauType.CROISEUR) {
-			System.out.println("Pour améliorer votre vaisseau de 10 PV, cela vous coutera 25 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setVie(this.estPresent.getVie()+10);
-			this.estPresent.setRessources(this.getRessources()-15);
-			
-		}else if(estPresent.getType()==VaisseauType.DESTROYER) {
-			System.out.println("Pour améliorer votre vaisseau de 10 PV, cela vous coutera 20 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setVie(this.estPresent.getVie()+10);
-			this.estPresent.setRessources(this.getRessources()-20);
-			
-		}else if(estPresent.getType()==VaisseauType.ECLAIREUR) {
-			System.out.println("Pour améliorer votre vaisseau de 10 PV, cela vous coutera 10 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setVie(this.estPresent.getVie()+10);
-			this.estPresent.setRessources(this.getRessources()-25);
-			
-		}
-		
-		
-	}
-	public void AmeliorationDMG() {
-		if(estPresent.getType()==VaisseauType.CHASSEUR) {
-			System.out.println("Pour améliorer votre vaisseau de 10 point d'attaque, cela vous coutera 15 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setAttaque(this.estPresent.getAttaque()+10);
-			this.estPresent.setRessources(this.getRessources()-20);
-			
-			
-		}else if(estPresent.getType()==VaisseauType.CROISEUR) {
-			System.out.println("Pour améliorer votre vaisseau de 10 point d'attaque, cela vous coutera 25 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setAttaque(this.estPresent.getAttaque()+10);
-			this.estPresent.setRessources(this.getRessources()-15);
-			
-		}else if(estPresent.getType()==VaisseauType.DESTROYER) {
-			System.out.println("Pour améliorer votre vaisseau de 10 point d'attaque, cela vous coutera 20 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setAttaque(this.estPresent.getAttaque()+10);
-			this.estPresent.setRessources(this.getRessources()-20);
-			
-		}else if(estPresent.getType()==VaisseauType.ECLAIREUR) {
-			System.out.println("Pour améliorer votre vaisseau de 10 point d'attaque, cela vous coutera 10 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setAttaque(this.estPresent.getAttaque()+10);
-			this.estPresent.setRessources(this.getRessources()-25);
-			
-		}
-	}
-	public void AmeliorationMVT() {
-		if(estPresent.getType()==VaisseauType.CHASSEUR) {
-			System.out.println("Pour améliorer votre vaisseau pour qu'il se déplace d'une case suplémentaire, cela vous coutera 10 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setMovementPointLeft(this.estPresent.getMovementPointLeft()+1);
-			this.estPresent.setRessources(this.getRessources()-10);
-			
-			
-		}else if(estPresent.getType()==VaisseauType.CROISEUR) {
-			System.out.println("Pour améliorer votre vaisseau pour qu'il se déplace d'une case suplémentaire, cela vous coutera 15 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setMovementPointLeft(this.estPresent.getMovementPointLeft()+1);
-			this.estPresent.setRessources(this.getRessources()-15);
-			
-		}else if(estPresent.getType()==VaisseauType.DESTROYER) {
-			System.out.println("Pour améliorer votre vaisseau pour qu'il se déplace d'une case suplémentaire, cela vous coutera 20 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setMovementPointLeft(this.estPresent.getMovementPointLeft()+1);
-			this.estPresent.setRessources(this.getRessources()-20);
-			
-		}else if(estPresent.getType()==VaisseauType.ECLAIREUR) {
-			System.out.println("Pour améliorer votre vaisseau pour qu'il se déplace d'une case suplémentaire, cela vous coutera 25 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setMovementPointLeft(this.estPresent.getMovementPointLeft()+1);
-			this.estPresent.setRessources(this.getRessources()-25);
-			
-		}
-	}
-	public void AmeliorationCapacity() {
-		if(estPresent.getType()==VaisseauType.CHASSEUR) {
-			System.out.println("Pour améliorer la capacité de stockage de 50, cela vous coutera 20 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
+	
+	
 
-			this.estPresent.setRessources(this.getRessources()-20);
-			
-			
-		}else if(estPresent.getType()==VaisseauType.CROISEUR) {
-			System.out.println("Pour améliorer la capacité de stockage de 50, cela vous coutera 10 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setCapacity(this.estPresent.getCapacity()+50);
-			this.estPresent.setRessources(this.getRessources()-15);
-			
-		}else if(estPresent.getType()==VaisseauType.DESTROYER) {
-			System.out.println("Pour améliorer la capacité de stockage de 50, cela vous coutera 15 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setCapacity(this.estPresent.getCapacity()+50);
-			this.estPresent.setRessources(this.getRessources()-20);
-			
-		}else if(estPresent.getType()==VaisseauType.ECLAIREUR) {
-			System.out.println("Pour améliorer la capacité de stockage de 50, cela vous coutera 25 débrits ");
-			System.out.println("Voulez vous l'améliorer ?");
-			try (Scanner scanner = new Scanner(System.in)) {
-				
-			}
-			this.estPresent.setCapacity(this.estPresent.getCapacity()+50);
-			this.estPresent.setRessources(this.getRessources()-25);
-			
-		}
-	}	
+	
 
 	
 	

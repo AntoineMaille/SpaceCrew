@@ -1,24 +1,31 @@
 package crew;
 
+import java.util.Scanner;
+
 public class Vaisseau extends Entities {
 
 	private VaisseauType type;
-	private char name;
+	private String name;
+	private char icone;
 	private int hp;
+	private int hpcapacity;
 	private int attaque;
 	private int movementPoint;
 	private int capacity;
 	private int movementPointLeft;
 	private int joueur;
 	private int ressources;
+	private static Scanner in = new Scanner(System.in);
 
 
 
 	public Vaisseau(VaisseauType t,int x,int y, int joueur) {
 		super(x,y);
 		this.type=t;
-		this.name = t.getIcone();
+		this.name = t.getName();
+		this.icone = t.getIcone();
 		this.hp= type.getVie();
+		this.hpcapacity = hp;
 		this.attaque = t.getAttaque();
 		this.capacity = t.getCapacity();
 		this.movementPointLeft = t.getMovementPoint();
@@ -26,16 +33,15 @@ public class Vaisseau extends Entities {
 		this.joueur= joueur;
 		this.ressources=0;
 	}
-	
 
 
-	public void Combat(Vaisseau attaquant) {
-		if (this.getType().getVie()-attaquant.getType().getAttaque()>=0){
-			this.setMovementPointLeft(0);
-			this.setName('☠');
-		}
-		this.setVie(this.getType().getVie()-attaquant.getType().getAttaque());
-		//system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
+	public char getIcone() {
+		return icone;
+	}
+
+
+	public void setIcone(char icone) {
+		this.icone = icone;
 	}
 
 
@@ -83,17 +89,6 @@ public class Vaisseau extends Entities {
 
 
 
-	public int getHp() {
-		return hp;
-	}
-
-
-
-	public void setHp(int hp) {
-		this.hp = hp;
-	}
-
-
 
 	public int getJoueur() {
 		return joueur;
@@ -107,14 +102,14 @@ public class Vaisseau extends Entities {
 
 
 
-	public char getName() {
+	public String getName() {
 		return name;
 	}
 
 
 
-	public void setName(char icone) {
-		this.name = icone;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 
@@ -160,6 +155,22 @@ public class Vaisseau extends Entities {
 	}
 
 
+	public int getHpcapacity() {
+		return hpcapacity;
+	}
+
+
+
+
+
+	public void setHpcapacity(int hpcapacity) {
+		this.hpcapacity = hpcapacity;
+	}
+
+
+
+
+
 	public boolean move(Direction d) {
 		if(		this.getPosition().update(d).getX() >= 0 &&
 				this.getPosition().update(d).getX() < Map.getLength()  && 
@@ -184,8 +195,84 @@ public class Vaisseau extends Entities {
 			else if (Map.getCase(this.getPosition().update(d)) instanceof Vaisseau){
 				combat((Vaisseau)Map.getCase(this.getPosition().update(d)));
 			}
+			else if(Map.getCase(this.getPosition().update(d)) instanceof PlaneteMarche) {
+				planeteMarche();
+
+			}
 		}
 		return false;
+	}
+
+	public void planeteMarche() {
+		if(!isFull()) {
+			System.out.println("Il faut que votre soute soit pleine pour améliorer votre vaisseau");
+		}
+		else {
+			System.out.println("Voulez-vous améliorer votre " + this.getName() + " ?");
+			System.out.println("1. oui\n 2. non\n");
+			String choix1 = in.nextLine();
+			while(!choix1.equals("1") && !choix1.equals("2")) {
+				choix1 = in.nextLine();;
+			}
+			switch(choix1) {
+			case "1" : 
+				System.out.println("1. Réparer votre vaisseau \n 2. Améliorer vos HP \n 3. Améliorer votre soute \n 4. Ameliorer votre attaque \n 5. Ameliorer vos points de déplacements \n");
+				String choix2 = in.nextLine();
+				while(!choix2.equals("1") && !choix2.equals("2") && !choix2.equals("3") && !choix2.equals("4") && !choix2.equals("5")) {
+					choix2 = in.nextLine();
+				}
+				switch(choix2) {
+				case "1" : heal();
+				break;
+				case "2" : ameliorationPV();
+				break;
+				case "3" : ameliorationCapacity();
+				break;
+				case "4": ameliorationAttaque();
+				break;
+				case "5" : ameliorationMP();
+				}
+				break;
+			case "2" :
+				System.out.println("Vous décollez de la planète");
+				break;
+			}
+			this.setRessources(0);
+		}
+	}
+
+
+	public void  ameliorationPV() {
+		System.out.println("Vous augmentez les hp de votre vaisseau de " + ( this.hpcapacity / 4) + " HP");
+		this.setHpcapacity(this.getVie()+ (this.getVie() / 4));
+	}
+
+	public void heal() {
+		System.out.println("Vous réparez votre vaisseau");
+		this.setVie(this.getHpcapacity());
+	}
+
+	public void ameliorationAttaque() {
+		System.out.println("Vous augmentez l'attaque de votre vaisseau de " +  this.attaque / 4 + " HP");
+		this.setAttaque(this.getAttaque()+ (this.getAttaque() / 4));
+	}
+
+	public void ameliorationMP() {
+		System.out.println("Vous augmentez les points de déplacements de votre vaisseau de 1");
+		this.setMovementPoint(this.getMovementPoint() + 1);
+	}
+
+	public void ameliorationCapacity() {
+		System.out.println("Vous augmentez la capacité de votre vaisseau de " + this.getCapacity() / 4 );
+		this.setCapacity(this.getCapacity() + this.getCapacity() / 4);
+	}
+
+	public boolean isFull() {
+		return this.getRessources() == this.getCapacity();
+	}
+
+	public boolean isFullLife() {
+		return this.hp == this.hpcapacity;
 	}
 
 
@@ -196,9 +283,9 @@ public class Vaisseau extends Entities {
 		else {
 			if (this.getVie() - attaquant.getAttaque()>=0){
 				this.setMovementPointLeft(0);
-				this.setName('☠');
+				this.setName("☠");
 			}
-			this.setVie(this.getHp()-attaquant.getAttaque());
+			this.setVie(this.getVie()-attaquant.getAttaque());
 			//system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
 		}
 	}
@@ -226,7 +313,10 @@ public class Vaisseau extends Entities {
 		}
 		else {
 			System.out.println("Vous trouvez " + p.getRessources() + " d�bris");
-			if(p.getRessources() > this.getCapacity() - this.ressources) {
+			if(this.ressources == this.capacity) {
+				System.out.println("Votre soute est déjà pleine, vous redecollez...");
+			}
+			else if(p.getRessources() > this.getCapacity() - this.ressources) {
 				System.out.println("Malheureusement vous ne pouvez en prendre que " + (this.getCapacity() - this.ressources) + " car vous n'avez pas assez de place dans votre soute" );
 				this.ressources = this.getCapacity();
 				p.setRessources(p.getRessources() - this.getCapacity() - this.ressources);
@@ -243,9 +333,7 @@ public class Vaisseau extends Entities {
 	}
 
 
-
-
 	public String toString() {
-		return this.getName() + "";
+		return this.getIcone() + "";
 	}
 }

@@ -1,13 +1,12 @@
 package crew;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Map {
 	private static ArrayList<Joueur> joueursList;
 	private ArrayList<PlaneteRandom> planetesRandom;
-	private static final int length = 16;
+	private static final int length = 10;
 	public static Entities [][] map = new Entities[length][length];
 	private int compteurPlanete = -1;
 	private static Scanner scanner = new Scanner(System.in);
@@ -26,6 +25,7 @@ public class Map {
 	public Map(ArrayList<Joueur> joueurs) {
 		joueursList = new ArrayList<Joueur>();
 		planetesRandom = new ArrayList<PlaneteRandom>();
+		new PlaneteMarche();
 		for (Joueur joueur : joueurs) {
 			joueursList.add(joueur);
 			Map.addEntities(joueur.getPlanete());
@@ -82,12 +82,10 @@ public class Map {
 
 	public static ArrayList<Joueur> creationJoueur() {
 		ArrayList<Joueur> joueurs = new ArrayList<>();
-		int nbEquipe;
-		System.out.println("Combien voulez-vous d'�quipes ? : ");
-		while(!scanner.hasNextInt()) {		
-			System.out.println("Vous devez entrer un int");
-		}
-		nbEquipe = scanner.nextInt();
+		int nbEquipe = 0;
+		System.out.println("Combien voulez-vous d'équipes ? : ");
+		if(scanner.hasNextInt())
+			nbEquipe = scanner.nextInt();
 		for (int nbJoueurs = 0; nbJoueurs < nbEquipe; nbJoueurs++) {
 			joueurs.add(new Joueur(nbJoueurs + 1, "toto", new PlaneteJoueur(PlaneteInitEnum.values() [nbJoueurs], nbJoueurs + 1)));
 		}
@@ -148,22 +146,22 @@ public class Map {
 						System.out.println("\n               Joueur " + joueur.getNumero() + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
 						for (Vaisseau vaisseauMenu : joueur.getFlotte()) {
 							if(vaisseau == vaisseauMenu)
-								System.out.println("-> " +  vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
+								System.out.println("-> " +  vaisseauMenu.getName() + ":  ❤️  " + vaisseauMenu.getVie() + "/" + vaisseauMenu.getHpcapacity() +"         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
 							else {
-								System.out.println("   " + vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
+								System.out.println("   " + vaisseauMenu.getName() + ":  ❤️  " + vaisseauMenu.getVie() + "/" + vaisseauMenu.getHpcapacity() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
 							}
 						}
 						String deplacement = scanner.nextLine();
-						while(!deplacement.equals("n") && !deplacement.equals("s") && !deplacement.equals("e") && !deplacement.equals("o")) {
+						while(!deplacement.equals("z") && !deplacement.equals("s") && !deplacement.equals("q") && !deplacement.equals("d")) {
 							deplacement = scanner.nextLine();
 						}
-						if (deplacement.equalsIgnoreCase("n")) {
+						if (deplacement.equalsIgnoreCase("z")) {
 							vaisseau.move(Direction.NORD);
 						}else if (deplacement.equalsIgnoreCase("s")) {
 							vaisseau.move(Direction.SUD);
-						}else if (deplacement.equalsIgnoreCase("e")) {
+						}else if (deplacement.equalsIgnoreCase("d")) {
 							vaisseau.move(Direction.EST);
-						}else if (deplacement.equalsIgnoreCase("o")) {
+						}else if (deplacement.equalsIgnoreCase("q")) {
 							vaisseau.move(Direction.OUEST);
 						}
 						System.out.println(map.toString());
