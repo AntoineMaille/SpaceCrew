@@ -28,17 +28,22 @@ public class Vaisseau extends Entities {
 	}
 	
 
-
 	public void Combat(Vaisseau attaquant) {
-		this.setVie(this.getType().getVie()-attaquant.getType().getAttaque());
-		if(this.getVie()<=0) {
-			this.setMovementPointLeft(0);
-			this.setName('☠');
-			attaquant.setRessources(this.getRessources()+attaquant.ressources); 
+		if(this.joueur == attaquant.getJoueur()) {
+			System.out.println("Vous ne pouvez pas attaquer votre propre flotte");
+		}else {
+		this.hp=this.hp-attaquant.getType().getAttaque();
+		System.out.println("Le vaisseau défenseur a subi "+attaquant.getType().getAttaque()+" il lui reste : "+this.hp+" points de vie.");
+		if(this.hp<=0) {
+			Map.mort(this);
+			}else {
+			attaquant.hp=attaquant.hp-this.getType().getAttaque();
+			System.out.println("Le vaisseau attaquant a subi "+this.getType().getAttaque()+" il lui reste "+attaquant.hp+" points de vie");
+			if(attaquant.hp<=0) {
+				Map.mort(attaquant);
+				}
+			}	
 		}
-		
-		//system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getType().getVie()-attaquant.getType().getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
-
 	}
 
 
@@ -185,26 +190,13 @@ public class Vaisseau extends Entities {
 				deposDebris((PlaneteJoueur) Map.getCase(this.getPosition().update(d)));
 			}
 			else if (Map.getCase(this.getPosition().update(d)) instanceof Vaisseau){
-				combat((Vaisseau)Map.getCase(this.getPosition().update(d)));
+				Combat((Vaisseau)Map.getCase(this.getPosition().update(d)));
 			}
 		}
 		return false;
 	}
 
 
-	public void combat(Vaisseau attaquant) {
-		if(this.joueur == attaquant.getJoueur()) {
-			System.out.println("Vous ne pouvez pas attaquer votre propre flotte");
-		}
-		else {
-			if (this.getVie() - attaquant.getAttaque()>=0){
-				this.setMovementPointLeft(0);
-				this.setName('☠');
-			}
-			this.setVie(this.getHp()-attaquant.getAttaque());
-			//system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+ this.getVie()-attaquant.getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
-		}
-	}
 
 	public void deposDebris(PlaneteJoueur p) {
 		if(p.getJoueur() != this.joueur) {
