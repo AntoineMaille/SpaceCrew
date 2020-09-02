@@ -45,6 +45,7 @@ public class Vaisseau extends Entities {
 	}
 
 
+
 	public int getVie() {
 		return hp;
 	}
@@ -299,6 +300,7 @@ public class Vaisseau extends Entities {
 				//defenseur supprimé
 				defenseur.setMovementPointLeft(0);
 				defenseur.setMovementPoint(0);
+				defenseur.setAttaque(0);
 				defenseur.setName("☠");
 				Map.deleteEntities(defenseur);
 			}else {
@@ -319,6 +321,7 @@ public class Vaisseau extends Entities {
 						//supprime le vaisseau de l'attaquant
 						this.setMovementPointLeft(0);
 						this.setMovementPoint(0);
+						this.setAttaque(0);
 						this.setName("☠");
 						Map.deleteEntities(this);
 					}
