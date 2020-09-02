@@ -35,7 +35,12 @@ public class Map {
 		}
 		for (int i = 0; i < (Map.length); i++) {
 			for (int j = 0; j < (Map.length); j++) {
-				if((((int) (Math.random() * 15))  >= 14) && (!((i > -1 && i < 4)&& (j > -1 && j < 4))) && (!((i > Map.length - 5 && i < Map.length) && ( j > Map.length - 5 && j < Map.length))) && (!((i > (Map.length/2 - 3) && i < (Map.length/2 + 2)) && ( j > (Map.length/2 - 3) && j < (Map.length/2 + 2))))) {
+				if((((int) (Math.random() * 15))  >= 14) 
+						&& (!((i > -1 && i < 4) && (j > -1 && j < 4))) 
+						&& (!((i > Map.length - 5 && i < Map.length) && ( j > Map.length - 5 && j < Map.length))) 
+						&& (!((i > (Map.length/2 - 3) && i < (Map.length/2 + 2)) && ( j > (Map.length/2 - 3) && j < (Map.length/2 + 2))))
+						&& (!((i > -1 && i < 4) && (j > Map.length - 5 && j < Map.length)))
+						&& (!((j > -1 && j < 4) && (i > Map.length - 5 && i < Map.length)))){
 					this.planetesRandom.add(new PlaneteRandom(i ,j));
 					compteurPlanete++;
 					Map.addEntities(this.planetesRandom.get(compteurPlanete));
