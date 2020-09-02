@@ -130,7 +130,16 @@ public class Map {
 	}**/
 
 
-
+	public static void mort(Vaisseau v) {
+		for (Joueur j : joueursList) {
+			for (Vaisseau cible : j.getFlotte()) {
+				if (v.equals(cible)) {
+					Map.deleteEntities(v);
+					j.getFlotte().remove(v);
+				}
+			}
+		}
+	}	
 
 
 	public static void main(String[] args) {
