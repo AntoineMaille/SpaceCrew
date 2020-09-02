@@ -1,5 +1,4 @@
 package crew;
-
 import java.util.Scanner;
 
 public class Vaisseau extends Entities {
@@ -29,7 +28,8 @@ public class Vaisseau extends Entities {
 		this.ressources=0;
 	}
 	
-	
+
+
 	public void Combat(Vaisseau defenseur){
 		if(this.joueur == defenseur.getJoueur()) {
 			System.out.println("Vous ne pouvez pas attaquer votre propre flotte");
@@ -37,7 +37,7 @@ public class Vaisseau extends Entities {
 		System.out.println("Voulez vous attaquer cette cible ? (o/n)");
 		Scanner sc=new Scanner(System.in);
 		String choix = sc.nextLine();
-		while(choix!="O" && choix!="o" && choix!="n" && choix!="N") {
+		while(!choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n")) {
 			System.out.println("ce n'est pas une réponse valable, répondez par O ou N .");
 			choix=sc.nextLine();
 		}
@@ -184,7 +184,6 @@ public class Vaisseau extends Entities {
 	}
 
 
-
 	public void setMovementPoint(int movementPoint) {
 		this.movementPoint = movementPoint;
 	}
@@ -231,9 +230,6 @@ public class Vaisseau extends Entities {
 			}
 			else if (Map.getCase(this.getPosition().update(d)) instanceof Vaisseau){
 				Combat((Vaisseau)Map.getCase(this.getPosition().update(d)));
-			}
-		}
-		return false;
 	}
 
 
@@ -255,12 +251,12 @@ public class Vaisseau extends Entities {
 	public void aterissagePlaneteRandom(PlaneteRandom p) {
 		System.out.println("Vous atterissez sur " + p.getName());
 		if(p.getRecharge() < 5) {
-			System.out.println("Malheureusement la plan�te est vide, vous repartez");
+			System.out.println("Malheureusement la planète est vide, vous repartez");
 			try{System.in.read();}
 			catch(Exception e){}
 		}
 		else {
-			System.out.println("Vous trouvez " + p.getRessources() + " d�bris");
+			System.out.println("Vous trouvez " + p.getRessources() + " débris");
 			if(p.getRessources() > this.getCapacity() - this.ressources) {
 				System.out.println("Malheureusement vous ne pouvez en prendre que " + (this.getCapacity() - this.ressources) + " car vous n'avez pas assez de place dans votre soute" );
 				this.ressources = this.getCapacity();
