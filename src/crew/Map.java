@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Map {
+	private ArrayList<Joueur> winners=new ArrayList();
 	private static ArrayList<Joueur> joueursList;
 	private ArrayList<PlaneteRandom> planetesRandom;
 	private static final int length = 16;
@@ -139,14 +140,36 @@ public class Map {
 				}
 			}
 		}
-	}	
-
+	}
+	public boolean win() {
+		this.winners.clear();
+		for (Joueur j : joueursList) {
+			if(j.getPlanete().getRessources()==PlaneteJoueur.getSeuil()) {
+				winners.add(j);
+			}
+		}
+		if(this.winners.size()> 0) {
+			return true;
+		}
+		else {
+			for (Joueur joueur : joueursList) {
+				for (Vaisseau v : joueur.getFlotte()) {
+					if(v.getVie() > 0) {
+						winners.add(joueur);
+					}
+				}
+			}
+			if(winners.size() == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public static void main(String[] args) {
 		Map map = new Map(creationJoueur());
 		System.out.println(map);
-		boolean win = false;
-		while(!win) {
+		while(!map.win()) {
 			for (PlaneteRandom planete : map.planetesRandom) {
 				if(planete.getRecharge() != 5)
 					planete.setRecharge(planete.getRecharge() + 1);
@@ -156,34 +179,35 @@ public class Map {
 					vaisseau.setMovementPointLeft(vaisseau.getMovementPoint());
 				}
 				if(joueur.getFlotte().size() > 0)
-				for (Vaisseau vaisseau : joueur.getFlotte()) {
-					System.out.println(map);
-					while(vaisseau.getMovementPointLeft() > 0) {
-						System.out.println("\n               Joueur " + joueur.getNumero() + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
-						for (Vaisseau vaisseauMenu : joueur.getFlotte()) {
-							if(vaisseau == vaisseauMenu)
-								System.out.println("-> " +  vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
-							else {
-								System.out.println("   " + vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
+					for (Vaisseau vaisseau : joueur.getFlotte()) {
+						System.out.println(map);
+						while(vaisseau.getMovementPointLeft() > 0) {
+							System.out.println("\n               Joueur " + joueur.getNumero() + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
+							for (Vaisseau vaisseauMenu : joueur.getFlotte()) {
+								if(vaisseau == vaisseauMenu)
+									System.out.println("-> " +  vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
+								else {
+									System.out.println("   " + vaisseauMenu.getType().getName() + ":  ❤️  " + vaisseauMenu.getHp() + "         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
+								}
 							}
+							String deplacement = scanner.nextLine();
+							while(!deplacement.equals("n") && !deplacement.equals("s") && !deplacement.equals("e") && !deplacement.equals("o")) {
+								deplacement = scanner.nextLine();
+							}
+							if (deplacement.equalsIgnoreCase("n")) {
+								vaisseau.move(Direction.NORD);
+							}else if (deplacement.equalsIgnoreCase("s")) {
+								vaisseau.move(Direction.SUD);
+							}else if (deplacement.equalsIgnoreCase("e")) {
+								vaisseau.move(Direction.EST);
+							}else if (deplacement.equalsIgnoreCase("o")) {
+								vaisseau.move(Direction.OUEST);
+							}
+							System.out.println(map.toString());
 						}
-						String deplacement = scanner.nextLine();
-						while(!deplacement.equals("n") && !deplacement.equals("s") && !deplacement.equals("e") && !deplacement.equals("o")) {
-							deplacement = scanner.nextLine();
-						}
-						if (deplacement.equalsIgnoreCase("n")) {
-							vaisseau.move(Direction.NORD);
-						}else if (deplacement.equalsIgnoreCase("s")) {
-							vaisseau.move(Direction.SUD);
-						}else if (deplacement.equalsIgnoreCase("e")) {
-							vaisseau.move(Direction.EST);
-						}else if (deplacement.equalsIgnoreCase("o")) {
-							vaisseau.move(Direction.OUEST);
-						}
-						System.out.println(map.toString());
 					}
-				}
 			}
 		}
+		System.out.println("C'est fini !!");
 	}
 }
