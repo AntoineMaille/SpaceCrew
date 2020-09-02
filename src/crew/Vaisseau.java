@@ -43,11 +43,13 @@ public class Vaisseau extends Entities {
 		}
 		sc.close();
 		if(choix.equalsIgnoreCase("o")){
+			this.setMovementPointLeft(this.movementPointLeft-1);
 			//defenseur subi les degats
 		defenseur.setVie(defenseur.getVie()-this.getAttaque());
 		System.out.println("Le vaisseau défenseur a subi "+this.getAttaque()+" il lui reste : "+defenseur.getVie()+" points de vie.");
 		//defenseur meurt
-		if(defenseur.hp<=0) {
+		if(defenseur.getVie()<=0) {
+			defenseur.setVie(0);
 			//recupere ressources
 			System.out.println(defenseur.getType().getName()+"du joueur"+defenseur.getJoueur()+"est détruit.");
 			if((this.getRessources()+defenseur.getRessources())>this.getCapacity()) {
@@ -58,15 +60,17 @@ public class Vaisseau extends Entities {
 				this.setRessources(this.getRessources()+defenseur.getRessources());
 			}		
 			//defenseur supprimé
-			Map.deleteEntities(defenseur);
+			defenseur.setMovementPointLeft(0);
 			defenseur.setMovementPoint(0);
-			defenseur.getType().setDisplayedName("☠");
+			defenseur.setName('☠');
+			Map.deleteEntities(defenseur);
 			}else {
 				//attaquant subi les dégats.
 			this.setVie(this.getVie()-(int)(defenseur.getAttaque()/3));
 			System.out.println("Le vaisseau attaquant a subi "+(int)(defenseur.getAttaque())/3+" il lui reste "+this.getVie()+" points de vie");
 			//attaquant meurt
 			if(this.getVie()<=0){
+				this.setVie(0);
 				System.out.println(this.getType().getName()+"du joueur"+this.getJoueur()+"est détruit.");
 				//recupere les ressources
 				if((defenseur.getRessources()+this.getRessources())>defenseur.getCapacity()) {
@@ -76,9 +80,10 @@ public class Vaisseau extends Entities {
 				defenseur.setRessources(defenseur.getRessources()+this.getRessources());
 				System.out.println("Le vaisseau du joueur "+defenseur.getJoueur()+"a récupéré "+this.getRessources()+" débris!");
 				//supprime le vaisseau de l'attaquant
-				Map.deleteEntities(this);
+				this.setMovementPointLeft(0);
 				this.setMovementPoint(0);
-				this.getType().setDisplayedName("☠");
+				this.setName('☠');
+				Map.deleteEntities(this);
 				}
 			   }
 			  }
