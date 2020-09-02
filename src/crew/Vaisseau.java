@@ -29,19 +29,20 @@ public class Vaisseau extends Entities {
 	}
 	
 
+
 	public void Combat(Vaisseau defenseur){
-			System.out.println("Voulez vous attaquer cette cible ? (o/n)");
+		if(this.joueur == defenseur.getJoueur()) {
+			System.out.println("Vous ne pouvez pas attaquer votre propre flotte");
+		}else{
+		System.out.println("Voulez vous attaquer cette cible ? (o/n)");
 		Scanner sc=new Scanner(System.in);
 		String choix = sc.nextLine();
-		while(choix!="O" && choix!="o" && choix!="n" && choix!="N") {
+		while(!choix.equalsIgnoreCase("o") && !choix.equalsIgnoreCase("n")) {
 			System.out.println("ce n'est pas une réponse valable, répondez par O ou N .");
 			choix=sc.nextLine();
 		}
 		sc.close();
 		if(choix.equalsIgnoreCase("o")){
-		if(this.joueur == defenseur.getJoueur()) {
-			System.out.println("Vous ne pouvez pas attaquer votre propre flotte");
-		}else{
 			//defenseur subi les degats
 		defenseur.setVie(defenseur.getVie()-this.getAttaque());
 		System.out.println("Le vaisseau défenseur a subi "+this.getAttaque()+" il lui reste : "+defenseur.getVie()+" points de vie.");
@@ -55,16 +56,17 @@ public class Vaisseau extends Entities {
 			}else {
 				System.out.println("Le vaisseau du joueur "+this.getJoueur()+"a récupéré "+defenseur.getRessources()+" débris!");
 				this.setRessources(this.getRessources()+defenseur.getRessources());
-			}
+			}		
 			//defenseur supprimé
 			Map.deleteEntities(defenseur);
 			defenseur.setMovementPoint(0);
 			defenseur.getType().setDisplayedName("☠");
 			}else {
-			this.setVie(this.getVie()-(defenseur.getAttaque()/2));
-			System.out.println("Le vaisseau attaquant a subi "+(defenseur.getAttaque())/2+" il lui reste "+this.getVie()+" points de vie");
+				//attaquant subi les dégats.
+			this.setVie(this.getVie()-(int)(defenseur.getAttaque()/3));
+			System.out.println("Le vaisseau attaquant a subi "+(int)(defenseur.getAttaque())/3+" il lui reste "+this.getVie()+" points de vie");
 			//attaquant meurt
-			if(this.getVie()<=0) {
+			if(this.getVie()<=0){
 				System.out.println(this.getType().getName()+"du joueur"+this.getJoueur()+"est détruit.");
 				//recupere les ressources
 				if((defenseur.getRessources()+this.getRessources())>defenseur.getCapacity()) {
@@ -73,15 +75,15 @@ public class Vaisseau extends Entities {
 				}else {
 				defenseur.setRessources(defenseur.getRessources()+this.getRessources());
 				System.out.println("Le vaisseau du joueur "+defenseur.getJoueur()+"a récupéré "+this.getRessources()+" débris!");
-				}
 				//supprime le vaisseau de l'attaquant
 				Map.deleteEntities(this);
 				this.setMovementPoint(0);
 				this.getType().setDisplayedName("☠");
 				}
-			}
-			}
-		}
+			   }
+			  }
+			 }
+		    }
 	}
 
 
