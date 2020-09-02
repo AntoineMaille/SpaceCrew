@@ -29,20 +29,34 @@ public class Vaisseau extends Entities {
 	
 
 	public void Combat(Vaisseau attaquant) {
+			System.out.println("Voulez vous attaquer cette cible ? (o/n)");
+		Scanner sc=new Scanner(System.in);
+		String choix = sc.nextLine();
+		while(choix!="O" && choix!="o" && choix!="n" && choix!="N") {
+			System.out.println("ce n'est pas une réponse valable, répondez par O ou N .");
+			choix=sc.nextLine();
+		}
+		sc.close();
+		if(choix==O || choix==o){
 		if(this.joueur == attaquant.getJoueur()) {
 			System.out.println("Vous ne pouvez pas attaquer votre propre flotte");
 		}else {
-		this.hp=this.hp-attaquant.getType().getAttaque();
-		System.out.println("Le vaisseau défenseur a subi "+attaquant.getType().getAttaque()+" il lui reste : "+this.hp+" points de vie.");
+		this.setVie=this.getVie-attaquant.getAttaque();
+		System.out.println("Le vaisseau défenseur a subi "+attaquant.getAttaque()+" il lui reste : "+this.hp+" points de vie.");
 		if(this.hp<=0) {
-			Map.mort(this);
+			Map.deleteEntities(this);
+			this.setMovementPoint(0);
+			this.setDisplayedName('☠');
 			}else {
-			attaquant.hp=attaquant.hp-this.getType().getAttaque();
-			System.out.println("Le vaisseau attaquant a subi "+this.getType().getAttaque()+" il lui reste "+attaquant.hp+" points de vie");
+			attaquant.setVie=attaquant.getVie-this.getAttaque();
+			System.out.println("Le vaisseau attaquant a subi "+this.getAttaque()/2+" il lui reste "+attaquant.getVie+" points de vie");
 			if(attaquant.hp<=0) {
 				Map.mort(attaquant);
+				attaquant.setMovementPoint(0);
+				attaquant.setDisplayedName('☠');
 				}
 			}	
+		}
 		}
 	}
 
