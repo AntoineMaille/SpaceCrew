@@ -12,6 +12,12 @@ public class Map {
 	private int compteurPlanete = -1;
 	private static Scanner scanner = new Scanner(System.in);
 	private PlaneteMarche marche;
+	public  final String ANSI_BLUE = "\u001B[34m";
+	public  final String ANSI_PURPLE = "\u001B[35m";
+	public  final String ANSI_CYAN = "\u001B[36m";
+	public  final String ANSI_RED = "\u001B[31m";
+	public  final String ANSI_RESET = "\u001B[0m";
+	private String [] colors = new String []{"\u001B[34m", "\u001B[35m","\u001B[36m", "\u001B[31m","\u001B[0m"};
 
 
 	public static Entities[][] getMap() {
@@ -21,6 +27,11 @@ public class Map {
 
 	public static int getLength() {
 		return length;
+	}
+
+
+	public String[] getColors() {
+		return colors;
 	}
 
 
@@ -202,7 +213,7 @@ public class Map {
 				for (Vaisseau vaisseau : joueur.getFlotte()) {
 					System.out.println(map);
 					while(vaisseau.getMovementPointLeft() > 0) {
-						System.out.println("\n               Joueur " + joueur.getNumero() + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
+						System.out.println("\n" + map.getColors()[joueur.getNumero() - 1] + "               Joueur " + joueur.getNumero() + map.getColors()[map.getColors().length - 1] + " 🌕 :  " + joueur.getPlanete().getRessources() + "/" + PlaneteJoueur.getSeuil() + "\n");
 						for (Vaisseau vaisseauMenu : joueur.getFlotte()) {
 							if(vaisseau == vaisseauMenu)
 								System.out.println("-> " +  vaisseauMenu.getName() + ":  ❤️  " + vaisseauMenu.getVie() + "/" + vaisseauMenu.getHpcapacity() +"         🔫   " + vaisseauMenu.getAttaque() + "         🛢️  " + vaisseauMenu.getRessources() + "/" + vaisseauMenu.getCapacity() + "        🏃‍♂️  " + vaisseauMenu.getMovementPointLeft());
