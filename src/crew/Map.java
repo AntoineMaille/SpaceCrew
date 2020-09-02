@@ -93,11 +93,12 @@ public class Map {
 		ArrayList<Joueur> joueurs = new ArrayList<>();
 		int nbEquipe;
 		System.out.println("Combien voulez-vous d'équipes ? : ");
-		while(!scanner.hasNextInt()) {		
-			System.out.println("Vous devez entrer un int");
-			scanner.hasNextInt();
+		String choix1 = scanner.nextLine();
+		while(!choix1.equals("2") && !choix1.equals("3") && !choix1.equals("4")) {
+			System.out.println("Choisissez un chiffre entre 2 et 4");
+			choix1 = scanner.nextLine();;
 		}
-		nbEquipe = scanner.nextInt();
+		nbEquipe = Integer.parseInt(choix1);
 		for (int nbJoueurs = 0; nbJoueurs < nbEquipe; nbJoueurs++) {
 			joueurs.add(new Joueur(nbJoueurs + 1, "toto", new PlaneteJoueur(PlaneteInitEnum.values() [nbJoueurs], nbJoueurs + 1)));
 		}
@@ -158,11 +159,12 @@ public class Map {
 		else {
 			for (Joueur joueur : joueursList) {
 				for (Vaisseau v : joueur.getFlotte()) {
-					if(v.getVie() > 0) {
+					if(v.getVie() > 0 && !winners.contains(joueur)) {
 						winners.add(joueur);
 					}
 				}
 			}
+			System.out.println(winners.size());
 			if(winners.size() == 1) {
 				return true;
 			}
@@ -173,17 +175,15 @@ public class Map {
 
 	public static void main(String[] args) {
 		Map map = new Map(creationJoueur());
-		boolean win = false;
 		while(!map.win()) {
 			for (PlaneteRandom planete : map.planetesRandom) {
-				if(planete.getRecharge() != 5)
+				if(planete.getRecharge() != PlaneteRandom.getTempsrecharge())
 					planete.setRecharge(planete.getRecharge() + 1);
 			}
 			for (Joueur joueur : joueursList) {
 				for (Vaisseau vaisseau : joueur.getFlotte()) {
 					vaisseau.setMovementPointLeft(vaisseau.getMovementPoint());
 				}
-				if(joueur.getFlotte().size() > 0)
 				for (Vaisseau vaisseau : joueur.getFlotte()) {
 					System.out.println(map);
 					while(vaisseau.getMovementPointLeft() > 0) {
@@ -213,6 +213,9 @@ public class Map {
 				}
 			}
 		}
-		System.out.println("C'est fini !");
+		System.out.println("le(s) vainqeurs sont :");
+		for (Joueur winners : map.winners) {
+			System.out.println(winners.getNumero());
+		}
 	}
 }

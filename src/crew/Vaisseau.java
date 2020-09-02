@@ -238,8 +238,11 @@ public class Vaisseau extends Entities {
 				System.out.println("Vous décollez de la planète");
 				break;
 			}
+			
 			this.setRessources(0);
 		}
+		try{System.in.read();}
+		catch(Exception e){}
 	}
 
 
@@ -254,7 +257,7 @@ public class Vaisseau extends Entities {
 	}
 
 	public void ameliorationAttaque() {
-		System.out.println("Vous augmentez l'attaque de votre vaisseau de " +  this.attaque / 4 + " HP");
+		System.out.println("Vous augmentez l'attaque de votre vaisseau de " +  this.attaque / 4 );
 		this.setAttaque(this.getAttaque()+ (this.getAttaque() / 4));
 	}
 
@@ -349,11 +352,9 @@ public class Vaisseau extends Entities {
 		System.out.println("Vous atterissez sur " + p.getName());
 		if(p.getRecharge() < 5) {
 			System.out.println("Malheureusement la plan�te est vide, vous repartez");
-			try{System.in.read();}
-			catch(Exception e){}
 		}
 		else {
-			System.out.println("Vous trouvez " + p.getRessources() + " d�bris");
+			System.out.println("Vous trouvez " + p.getRessources() + " débris");
 			if(this.ressources == this.capacity) {
 				System.out.println("Votre soute est déjà pleine, vous redecollez...");
 			}
@@ -370,6 +371,8 @@ public class Vaisseau extends Entities {
 			catch(Exception e){}
 		}
 		this.movementPointLeft --;
+		try{System.in.read();}
+		catch(Exception e){}
 
 	}
 

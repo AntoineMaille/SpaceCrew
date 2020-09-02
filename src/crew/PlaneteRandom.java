@@ -5,6 +5,7 @@ import java.util.Random;
 public class PlaneteRandom extends Planets{
 	private Vaisseau currentVessel;
 	private int recharge;
+	private static final int tempsRecharge = 3;
 	private static Random ran = new Random();
 	
 	public PlaneteRandom(int x, int y) {
@@ -27,6 +28,10 @@ public class PlaneteRandom extends Planets{
 
 	public void setRecharge(int recharge) {
 		this.recharge = recharge;
+	}
+
+	public static int getTempsrecharge() {
+		return tempsRecharge;
 	}
 	
 	
