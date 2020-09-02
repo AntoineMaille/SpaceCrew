@@ -2,11 +2,7 @@ package crew;
 
 public class PlaneteJoueur extends Planets{
 	private int joueur;
-<<<<<<< HEAD
 	private static int seuil = 10000;
-=======
-	private static int seuil = 15000;
->>>>>>> branch 'master' of https://gitlab.univ-lille.fr/2020-S3-projet/groupe-23.git
 	public PlaneteInitEnum positionInit;
 	
 	
