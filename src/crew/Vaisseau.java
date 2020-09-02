@@ -1,5 +1,7 @@
 package crew;
 
+import java.util.Scanner;
+
 public class Vaisseau extends Entities {
 
 	private VaisseauType type;
@@ -184,6 +186,15 @@ public class Vaisseau extends Entities {
 
 
 	public void combat(Vaisseau attaquant) {
+		System.out.println("Voulez vous attaquer cette cible ? (o/n)");
+		Scanner sc=new Scanner(System.in);
+		String choix = sc.nextLine();
+		while(choix!="O" && choix!="o" && choix!="n" && choix!="N") {
+			System.out.println("ce n'est pas une réponse valable, répondez par O ou N .");
+			choix=sc.nextLine();
+		}
+		sc.close();
+		
 		if(this.joueur == attaquant.getJoueur()) {
 			System.out.println("Vous ne pouvez pas attaquer votre propre flotte");
 		}
@@ -193,9 +204,11 @@ public class Vaisseau extends Entities {
 				this.setName('☠');
 			}
 			this.setVie(this.getHp()-attaquant.getAttaque());
-		//	system.out.println("Le Vaisseau s'est fait bombardé et a subi :"+attaquant.getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
+		System.out.println("Le Vaisseau s'est fait bombardé et a subi :"+attaquant.getAttaque() +"Point de dégâts, il lui en reste :"+this.getVie());
 		}
 	}
+
+	
 
 	public void deposDebris(PlaneteJoueur p) {
 		if(p.getJoueur() != this.joueur) {
